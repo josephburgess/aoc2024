@@ -11,4 +11,7 @@ def parse_arrays(data: str) -> tuple[list[int], list[int]]:
 
 
 def calculate_distance(left: list[int], right: list[int]) -> int:
-    return abs(left[0] - right[0])
+    left_sorted = sorted(left)
+    right_sorted = sorted(right)
+    
+    return sum(abs(a - b) for a, b in zip(left_sorted, right_sorted))

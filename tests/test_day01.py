@@ -38,4 +38,23 @@ class TestCalculateDistance:
         left = [1]
         right = [1]
         result = calculate_distance(left, right)
-        assert result == 0  # No distance since both elements are the same
+        assert result == 0
+
+    def test_single_element_different_lists(self):
+        left = [2]
+        right = [5]
+        result = calculate_distance(left, right)
+        assert result == 3
+
+    def test_unsorted_lists(self):
+        left = [3, 1, 2]
+        right = [6, 4, 5]
+        result = calculate_distance(left, right)
+        assert result == 9
+
+    def test_example_data(self, test_data: str):
+        left, right = parse_arrays(test_data)
+
+        result = calculate_distance(left, right)
+
+        assert result == 11
