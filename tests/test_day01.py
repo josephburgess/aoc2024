@@ -1,5 +1,5 @@
 import pytest
-from solutions.day01 import parse_arrays
+from solutions.day01 import parse_arrays, calculate_distance
 
 @pytest.fixture
 def test_data():
@@ -30,3 +30,12 @@ class TestParseArrays:
 
         assert result[0] == left
         assert result[1] == right
+
+
+class TestCalculateDistance:
+
+    def test_single_element_lists(self):
+        left = [1]
+        right = [1]
+        result = calculate_distance(left, right)
+        assert result == 0  # No distance since both elements are the same
