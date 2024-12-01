@@ -21,3 +21,12 @@ class TestParseArrays:
         assert len(result) == 2
         assert isinstance(result[0], list)
         assert isinstance(result[1], list)
+
+    def test_parses_correct_arrays(self, test_data: str):
+        result = parse_arrays(test_data)
+
+        left = [3, 4, 2, 1, 3, 3]
+        right = [4, 3, 5, 3, 9, 3]
+
+        assert result[0] == left
+        assert result[1] == right
