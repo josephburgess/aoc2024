@@ -6,10 +6,10 @@ def solve():
         data = f.read()
 
     left, right = parse_arrays(data)
-
     total_distance = calculate_distance(left, right)
-
     similarity_score = calculate_similarity_score(left, right)
 
-    return (f"Day 1 - total distance: {total_distance}\n"
-            f"Day 1 - similarity score: {similarity_score}")
+    return (f"\nDay 1\n"
+            f"=======\n"
+            f"1) Total distance: {total_distance}\n"
+            f"2) Similarity Score: {similarity_score}\n")
