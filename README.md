@@ -10,21 +10,11 @@ Solving in Python because it's just a fun language to solve coding problems with
 
 ## Solutions
 
-If, for some reason, you wanted to see see the actual solution outputs for each day, follow these steps:
+If, for some reason, you wanted to see see the actual solution outputs for each day, just clone the repo, install deps and run `main.py`.
 
-1. Clone the repository
-
-   ```sh
-   git clone https://github.com/josephburgess/aoc2024.git
-   ```
-
-2. Install the dependencies
-
-   ```sh
-   pip install -r requirements.txt
-   ```
-
-3. Run `main.py`
-   ```sh
-   python main.py
-   ```
+```sh
+git clone https://github.com/josephburgess/aoc2024.git
+cd aoc2024
+pip install -r requirements.txt
+python main.py
+```
