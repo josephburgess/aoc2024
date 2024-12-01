@@ -10,7 +10,7 @@ def main():
 
         if os.path.isdir(folder_path) and folder.startswith("day"):
             try:
-                module = importlib.import_module(f"{solutions_path}.{folder}.day01")
+                module = importlib.import_module(f"{solutions_path}.{folder}.solve")
 
                 if hasattr(module, "solve"):
                     solve: Callable[[], str] = getattr(module, "solve")
