@@ -1,0 +1,26 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.autopep8]
+max_line_length = 120
+ignore = "E501,W6"
+in-place = true
+recursive = true
+aggressive = 3
+
+[tool.isort]
+profile = "hug"
+src_paths = ["solutions", "test"]
+
+[tool.basedpyright]
+include = ["solutions"]
+exclude = ["**/node_modules", "**/__pycache__"]
+
+reportMissingImports = true
+reportUndefinedVariable = true
+
+pythonVersion = "3.13"
+pythonPlatform = "Linux"
+venvPath = "/Users/josephburgess/.pyenv/versions/"
+venv = "advent-of-code"
+
