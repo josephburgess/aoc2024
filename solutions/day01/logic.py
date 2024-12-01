@@ -1,3 +1,5 @@
+from collections import Counter
+
 def parse_arrays(data: str) -> tuple[list[int], list[int]]:
     left: list[int] = []
     right: list[int] = []
@@ -14,3 +16,14 @@ def calculate_distance(left: list[int], right: list[int]) -> int:
     right_sorted = sorted(right)
     
     return sum(abs(a - b) for a, b in zip(left_sorted, right_sorted))
+
+
+
+def calculate_similarity_score(left: list[int], right: list[int]) -> int:
+    right_counts = Counter(right)
+
+    similarity_score = 0
+    for num in left:
+        similarity_score += num * right_counts.get(num, 0)
+    
+    return similarity_score

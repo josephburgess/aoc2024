@@ -1,5 +1,5 @@
 import pytest
-from solutions.day01 import parse_arrays, calculate_distance
+from solutions.day01 import parse_arrays, calculate_distance, calculate_similarity_score
 
 @pytest.fixture
 def test_data():
@@ -58,3 +58,13 @@ class TestCalculateDistance:
         result = calculate_distance(left, right)
 
         assert result == 11
+
+class TestCalculateSimilarityScore:
+
+    def test_calculate_similarity_score(self):
+        left = [3, 4, 2, 1, 3, 3]
+        right = [4, 3, 5, 3, 9, 3]
+
+        result = calculate_similarity_score(left, right)
+
+        assert result == 31
