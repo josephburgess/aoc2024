@@ -1,1 +1,2 @@
-from .solution import *
+from .logic import *
+from .day01 import *
