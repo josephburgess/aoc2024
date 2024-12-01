@@ -1,6 +1,7 @@
 import pytest
 from solutions.day01 import parse_arrays, calculate_distance, calculate_similarity_score
 
+
 @pytest.fixture
 def test_data():
     return """
@@ -11,6 +12,7 @@ def test_data():
     3   9
     3   3
     """
+
 
 class TestParseArrays:
 
@@ -58,6 +60,7 @@ class TestCalculateDistance:
         result = calculate_distance(left, right)
 
         assert result == 11
+
 
 class TestCalculateSimilarityScore:
 
