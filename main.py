@@ -28,7 +28,6 @@ def main():
                 print(f"Error in {folder.name}: {e}")
 
 
-
-
 if __name__ == "__main__":
     main()
+
