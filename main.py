@@ -1,6 +1,8 @@
 import os
 import importlib
-from typing import Callable
+from collections.abc import Callable
+
+from custom_types import Solution
 
 
 def main():
@@ -13,8 +15,13 @@ def main():
                 module = importlib.import_module(f"{solutions_path}.{folder}.solve")
 
                 if hasattr(module, "solve"):
-                    solve: Callable[[], str] = getattr(module, "solve")
-                    print(solve())
+                    solve: Callable[[], Solution] = getattr(module, "solve")
+                    results = solve()
+
+                    print(f"\n{folder.capitalize()}")
+                    print("=" * len(folder))
+                    for key, value in results.items():
+                        print(f"{key}: {value}")
                 else:
                     print(f"{folder} needs a solve function!")
             except Exception as e:
