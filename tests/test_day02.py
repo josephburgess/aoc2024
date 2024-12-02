@@ -1,6 +1,6 @@
 import pytest
 
-from solutions.day02 import is_safe_report, is_valid_with_removal, parse_arrays, solve
+from solutions.day02 import is_safe_report, is_safe_with_removed_item, parse_arrays, solve
 
 
 class TestParseLists:
@@ -60,12 +60,12 @@ class TestLevelSafety:
 class TestIsValidWithRemoval:
     def test_is_valid_with_removal(self):
         # just using examples from the puzzle to verify for Q2
-        assert is_valid_with_removal([7, 6, 4, 2, 1])
-        assert not is_valid_with_removal([1, 2, 7, 8, 9])
-        assert not is_valid_with_removal([9, 7, 6, 2, 1])
-        assert is_valid_with_removal([1, 3, 2, 4, 5])
-        assert is_valid_with_removal([8, 6, 4, 4, 1])
-        assert is_valid_with_removal([1, 3, 6, 7, 9])
+        assert is_safe_with_removed_item([7, 6, 4, 2, 1])
+        assert not is_safe_with_removed_item([1, 2, 7, 8, 9])
+        assert not is_safe_with_removed_item([9, 7, 6, 2, 1])
+        assert is_safe_with_removed_item([1, 3, 2, 4, 5])
+        assert is_safe_with_removed_item([8, 6, 4, 4, 1])
+        assert is_safe_with_removed_item([1, 3, 6, 7, 9])
 
 
 @pytest.fixture

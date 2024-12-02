@@ -5,7 +5,7 @@ from utils import split_and_map
 
 
 def parse_arrays(data: str) -> tuple[list[int], list[int]]:
-    lines: list[list[int]] = split_and_map(data)
+    lines = split_and_map(data)
     left, right = map(list, zip(*lines))
     return left, right
 

@@ -15,7 +15,7 @@ def is_safe_report(report: list[int]) -> bool:
     return report == sorted(report) or report == sorted(report, reverse=True)
 
 
-def is_valid_with_removal(report: list[int]) -> bool:
+def is_safe_with_removed_item(report: list[int]) -> bool:
     if is_safe_report(report):
         return True
 
@@ -28,6 +28,6 @@ def solve(data: str) -> Solution:
     reports = parse_arrays(data)
 
     safe_reports = sum(is_safe_report(r) for r in reports)
-    more_accurate_count = sum(is_valid_with_removal(r) for r in reports)
+    more_accurate_count = sum(is_safe_with_removed_item(r) for r in reports)
 
     return safe_reports, more_accurate_count
