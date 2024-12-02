@@ -1,6 +1,7 @@
 import pytest
 
 from solutions.day02 import is_safe_report, is_valid_with_removal, parse_arrays
+from solutions.day02.solve import solve
 
 
 class TestParseLists:
@@ -76,12 +77,7 @@ def real_data():
 
 class TestSolve:
 
-    def test_solve_first_puzzle(self, real_data: str):
-        reports = parse_arrays(real_data)
-        count = sum(is_safe_report(r) for r in reports)
-        assert count == 220
-
-    def test_solve_second_puzzle(self, real_data: str):
-        reports = parse_arrays(real_data)
-        count = sum(is_valid_with_removal(r) for r in reports)
-        assert count == 296
+    def test_solve_answers(self, real_data: str):
+        results = solve(real_data)
+        assert results[0] == 220
+        assert results[1] == 296

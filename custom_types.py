@@ -1,1 +1,1 @@
-Solution = dict[str, int]
+Solution = tuple[int, int]

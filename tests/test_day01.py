@@ -1,5 +1,6 @@
 import pytest
 from solutions.day01 import parse_arrays, calculate_distance, calculate_similarity_score
+from solutions.day01.solve import solve
 
 
 @pytest.fixture
@@ -81,15 +82,7 @@ class TestCalculateSimilarityScore:
 
 class TestSolve:
     # added _after_ solving day 1, in case of refactoring
-
     def test_answer_one(self, real_data: str):
-        left, right = parse_arrays(real_data)
-        total_distance = calculate_distance(left, right)
-
-        assert total_distance == 1830467
-
-    def test_answer_two(self, real_data: str):
-        left, right = parse_arrays(real_data)
-        similarity_score = calculate_similarity_score(left, right)
-
-        assert similarity_score == 26674158
+        results = solve(real_data)
+        assert results[0] == 1830467
+        assert results[1] == 26674158

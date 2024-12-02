@@ -1,31 +1,37 @@
-import os
 import importlib
-from collections.abc import Callable
-
+from typing import Callable
+from pathlib import Path
 from custom_types import Solution
 
 
 def main():
     solutions_path = "solutions"
-    for folder in sorted(os.listdir(solutions_path)):
-        folder_path = os.path.join(solutions_path, folder)
-
-        if os.path.isdir(folder_path) and folder.startswith("day"):
+    input_path = "input"
+    for folder in sorted(Path(solutions_path).iterdir()):
+        if folder.is_dir() and folder.name.startswith("day"):
             try:
-                module = importlib.import_module(f"{solutions_path}.{folder}.solve")
+                input_file = Path(input_path) / f"{folder.name}.txt"
+                if not input_file.exists():
+                    print(f"input file for {folder.name} missing")
+                    continue
+
+                with input_file.open("r") as f:
+                    data = f.read()
+
+                module = importlib.import_module(f"{solutions_path}.{folder.name}.solve")
 
                 if hasattr(module, "solve"):
-                    solve: Callable[[], Solution] = getattr(module, "solve")
-                    results = solve()
+                    solve: Callable[[str], Solution] = getattr(module, "solve")
+                    results = solve(data)
 
-                    print(f"\n{folder.capitalize()}")
-                    print("=" * len(folder))
-                    for key, value in results.items():
-                        print(f"{key}: {value}")
+                    print(f"\n{folder.name.capitalize()}")
+                    print("=" * len(folder.name))
+                    for i, answer in enumerate(results, start=1):
+                        print(f"Answer {i}: {answer}")
                 else:
-                    print(f"{folder} needs a solve function!")
+                    print(f"{folder.name} needs a solve function!")
             except Exception as e:
-                print(f"Error running {folder}: {e}")
+                print(f"Error {folder.name}: {e}")
 
 
 if __name__ == "__main__":
