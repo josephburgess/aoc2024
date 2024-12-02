@@ -38,3 +38,20 @@ class TestLevelSafety:
     def test_safe_report_when_number_unchanged(self):
         data = [1, 2, 3, 3, 4]
         assert not is_safe_report(data)
+
+    def test_increasing_with_gap_out_of_range(self):
+        data = [1, 2, 3, 7]
+        assert not is_safe_report(data)
+
+    def test_decreasing_with_gap_out_of_range(self):
+        data = [10, 8, 6, 1]
+        assert not is_safe_report(data)
+
+    def test_inconsistent_order(self):
+        data = [1, 2, 3, 2, 1]
+        assert not is_safe_report(data)
+
+    def test_gaps_out_of_order(self):
+        data = [10, 7, 5, 11]
+        assert not is_safe_report(data)
+
