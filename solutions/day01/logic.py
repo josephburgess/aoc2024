@@ -1,15 +1,12 @@
 from collections import Counter
 
+from solutions.utils import split_and_map
+
 
 def parse_arrays(data: str) -> tuple[list[int], list[int]]:
-    left: list[int] = []
-    right: list[int] = []
-
-    for line in data.strip().split("\n"):
-        left_num, right_num = map(int, line.split())
-        left.append(left_num)
-        right.append(right_num)
-    return (left, right)
+    lines: list[list[int]] = split_and_map(data)
+    left, right = map(list, zip(*lines))
+    return left, right
 
 
 def calculate_distance(left: list[int], right: list[int]) -> int:
