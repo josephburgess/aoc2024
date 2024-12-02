@@ -15,8 +15,7 @@ def calculate_distance(left: list[int], right: list[int]) -> int:
 
 
 def calculate_similarity_score(left: list[int], right: list[int]) -> int:
-    right_counts = Counter(right)
-    return sum(num * right_counts.get(num, 0) for num in left)
+    return sum(num * Counter(right).get(num, 0) for num in left)
 
 
 def solve(data: str) -> Solution:
