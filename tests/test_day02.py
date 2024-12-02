@@ -29,3 +29,7 @@ class TestLevelSafety:
     def test_safe_report_descending(self):
         data = [5,4,3,2,1]
         assert is_safe_report(data)
+    
+    def test_safe_report_large_gap(self):
+        data = [1,2,3,9,10]
+        assert not is_safe_report(data)
