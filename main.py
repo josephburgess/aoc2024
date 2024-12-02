@@ -3,7 +3,7 @@ from collections.abc import Callable
 from pathlib import Path
 
 from custom_types import Solution
-from solutions.utils import print_solutions
+from utils import print_solutions
 
 
 def main():

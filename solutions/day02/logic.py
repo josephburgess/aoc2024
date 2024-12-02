@@ -1,5 +1,5 @@
 
-from solutions.utils import split_and_map
+from utils import split_and_map
 
 
 def parse_arrays(data: str) -> list[list[int]]:

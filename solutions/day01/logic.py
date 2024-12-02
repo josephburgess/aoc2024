@@ -1,6 +1,6 @@
 from collections import Counter
 
-from solutions.utils import split_and_map
+from utils import split_and_map
 
 
 def parse_arrays(data: str) -> tuple[list[int], list[int]]:
