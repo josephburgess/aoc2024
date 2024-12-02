@@ -13,10 +13,12 @@ def test_data():
     3   3
     """
 
+
 @pytest.fixture
 def real_data():
     with open("input/day01.txt", "r") as f:
         return f.read()
+
 
 class TestParseArrays:
 
@@ -76,6 +78,7 @@ class TestCalculateSimilarityScore:
 
         assert result == 31
 
+
 class TestSolve:
     # added _after_ solving day 1, in case of refactoring
 
@@ -85,9 +88,8 @@ class TestSolve:
 
         assert total_distance == 1830467
 
-    def test_answer_two(self, real_data:str):
+    def test_answer_two(self, real_data: str):
         left, right = parse_arrays(real_data)
         similarity_score = calculate_similarity_score(left, right)
 
         assert similarity_score == 26674158
-

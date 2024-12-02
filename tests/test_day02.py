@@ -14,26 +14,27 @@ class TestParseLists:
         5 6 7 8
         """
         result = parse_arrays(data)
-        assert result == [[1,2,3,4],[5,6,7,8]]
+        assert result == [[1, 2, 3, 4], [5, 6, 7, 8]]
 
     def test_empty_input(self):
         data = ""
         result = parse_arrays(data)
         assert result == []
 
+
 class TestLevelSafety:
     def test_safe_report_ascending(self):
-        data = [1,2,3,4,5]
+        data = [1, 2, 3, 4, 5]
         assert is_safe_report(data)
 
     def test_safe_report_descending(self):
-        data = [5,4,3,2,1]
+        data = [5, 4, 3, 2, 1]
         assert is_safe_report(data)
-    
+
     def test_safe_report_large_gap(self):
-        data = [1,2,3,9,10]
+        data = [1, 2, 3, 9, 10]
         assert not is_safe_report(data)
 
     def test_safe_report_when_number_unchanged(self):
-        data = [1,2,3,3,4]
+        data = [1, 2, 3, 3, 4]
         assert not is_safe_report(data)
