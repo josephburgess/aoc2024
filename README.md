@@ -6,8 +6,10 @@ Solving in Python because it's just a fun language to solve coding problems with
 
 ## Progress
 
-- [x] Day 1
-- [x] Day 2
+| Puzzle                                                           |                                        Solution                                         | Result |
+| :--------------------------------------------------------------- | :-------------------------------------------------------------------------------------: | :----: |
+| [Day 1: Historian Hysteria](https://adventofcode.com/2024/day/1) | [Solution](https://github.com/josephburgess/aoc2024/blob/main/solutions/day01/solve.py) | ⭐️⭐️ |
+| [Day 2: Red-Nosed Reports](https://adventofcode.com/2024/day/2)  | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day02/solve.py) | ⭐️⭐️ |
 
 ## Solutions
 
