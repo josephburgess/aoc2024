@@ -56,6 +56,7 @@ class TestLevelSafety:
         data = [10, 7, 5, 11]
         assert not is_safe_report(data)
 
+
 class TestIsValidWithRemoval:
     def test_is_valid_with_removal(self):
         # examples from the puzzle
@@ -66,10 +67,12 @@ class TestIsValidWithRemoval:
         assert is_valid_with_removal([8, 6, 4, 4, 1])
         assert is_valid_with_removal([1, 3, 6, 7, 9])
 
+
 @pytest.fixture
 def real_data():
     with open("input/day02.txt", "r") as f:
         return f.read()
+
 
 class TestSolve:
 
@@ -80,7 +83,6 @@ class TestSolve:
             if is_safe_report(r):
                 count += 1
         assert count == 220
-
 
     def test_solve_second_puzzle(self, real_data: str):
         reports = parse_arrays(real_data)
@@ -95,4 +97,3 @@ class TestSolve:
                         count += 1
                         break
         assert count == 296
-

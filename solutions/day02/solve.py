@@ -1,5 +1,6 @@
 from .logic import is_safe_report, is_valid_with_removal, parse_arrays
 
+
 def solve():
     with open("input/day02.txt", "r") as f:
         data = f.read()
