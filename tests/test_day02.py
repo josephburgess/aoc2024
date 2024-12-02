@@ -55,3 +55,14 @@ class TestLevelSafety:
         data = [10, 7, 5, 11]
         assert not is_safe_report(data)
 
+class TestSolve:
+
+    def test_solve_first_puzzle(self):
+        with open("input/day02.txt", "r") as f:
+            data = f.read()
+        reports = parse_arrays(data)
+        count = 0
+        for r in reports:
+            if is_safe_report(r):
+                count += 1
+        assert count == 220
