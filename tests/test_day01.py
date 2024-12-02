@@ -1,7 +1,6 @@
 import pytest
 
-from solutions.day01 import calculate_distance, calculate_similarity_score, parse_arrays
-from solutions.day01.solve import solve
+from solutions.day01 import calculate_distance, calculate_similarity_score, parse_arrays, solve
 
 
 @pytest.fixture

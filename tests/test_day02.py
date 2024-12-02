@@ -1,7 +1,6 @@
 import pytest
 
-from solutions.day02 import is_safe_report, is_valid_with_removal, parse_arrays
-from solutions.day02.solve import solve
+from solutions.day02 import is_safe_report, is_valid_with_removal, parse_arrays, solve
 
 
 class TestParseLists:
