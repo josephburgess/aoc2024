@@ -1,4 +1,4 @@
-from .logic import is_safe_report, parse_arrays
+from .logic import is_safe_report, is_valid_with_removal, parse_arrays
 
 def solve():
     with open("input/day02.txt", "r") as f:
@@ -6,18 +6,9 @@ def solve():
 
     reports = parse_arrays(data)
 
-    count = 0
-    safer_count = 0
-    for r in reports:
-        if is_safe_report(r):
-            count += 1
-            safer_count +=1
-        else:
-            for index in range(len(r)):
-                modified_report = r[:index] + r[index + 1:]
-                if is_safe_report(modified_report):
-                    safer_count += 1
-                    break
+    count = sum(is_safe_report(r) for r in reports)
+
+    safer_count = sum(is_valid_with_removal(r) for r in reports)
 
     return (f"\nDay 2\n"
             f"=======\n"

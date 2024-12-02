@@ -1,6 +1,6 @@
 import pytest
 
-from solutions.day02.logic import is_safe_report, parse_arrays
+from solutions.day02.logic import is_safe_report, is_valid_with_removal, parse_arrays
 
 
 class TestParseLists:
@@ -55,6 +55,16 @@ class TestLevelSafety:
     def test_gaps_out_of_order(self):
         data = [10, 7, 5, 11]
         assert not is_safe_report(data)
+
+class TestIsValidWithRemoval:
+    def test_is_valid_with_removal(self):
+        # examples from the puzzle
+        assert is_valid_with_removal([7, 6, 4, 2, 1])
+        assert not is_valid_with_removal([1, 2, 7, 8, 9])
+        assert not is_valid_with_removal([9, 7, 6, 2, 1])
+        assert is_valid_with_removal([1, 3, 2, 4, 5])
+        assert is_valid_with_removal([8, 6, 4, 4, 1])
+        assert is_valid_with_removal([1, 3, 6, 7, 9])
 
 @pytest.fixture
 def real_data():

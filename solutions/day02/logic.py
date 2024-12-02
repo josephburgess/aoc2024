@@ -12,3 +12,13 @@ def is_safe_report(report: list[int]) -> bool:
 
     return report == sorted(report) or report == sorted(report, reverse=True)
 
+def is_valid_with_removal(report: list[int]) -> bool:
+    if is_safe_report(report):
+        return True
+    
+    for i in range(len(report)):
+        modified_report = report[:i] + report[i+1:]
+        if is_safe_report(modified_report):
+            return True
+    
+    return False
