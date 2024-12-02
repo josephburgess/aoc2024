@@ -23,4 +23,3 @@ pythonVersion = "3.13"
 pythonPlatform = "Linux"
 venvPath = "/Users/josephburgess/.pyenv/versions/"
 venv = "advent-of-code"
-
