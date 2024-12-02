@@ -8,7 +8,7 @@ import argparse
 _ = load_dotenv()
 SESSION_COOKIE = os.getenv("SESSION_COOKIE")
 BASE_URL = "https://adventofcode.com/2024/day/{day}/input"
-INPUT_DIR = Path(__file__).parent / "input"
+INPUT_DIR = Path(__file__).parent.parent / "input"
 
 def fetch_input(day: int):
     url = BASE_URL.format(day=day)
