@@ -1,9 +1,9 @@
-import os
-import requests
-from pathlib import Path
-from dotenv import load_dotenv
 import argparse
+import os
+from pathlib import Path
 
+import requests
+from dotenv import load_dotenv
 
 _ = load_dotenv()
 SESSION_COOKIE = os.getenv("SESSION_COOKIE")

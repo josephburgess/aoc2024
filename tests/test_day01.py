@@ -1,5 +1,6 @@
 import pytest
-from solutions.day01 import parse_arrays, calculate_distance, calculate_similarity_score
+
+from solutions.day01 import calculate_distance, calculate_similarity_score, parse_arrays
 from solutions.day01.solve import solve
 
 

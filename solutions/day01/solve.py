@@ -1,5 +1,6 @@
 from custom_types import Solution
-from .logic import calculate_similarity_score, parse_arrays, calculate_distance
+
+from .logic import calculate_distance, calculate_similarity_score, parse_arrays
 
 
 def solve(data: str) -> Solution:

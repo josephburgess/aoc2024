@@ -1,4 +1,5 @@
 from custom_types import Solution
+
 from .logic import is_safe_report, is_valid_with_removal, parse_arrays
 
 

@@ -1,3 +1,6 @@
+from custom_types import Solution
+
+
 def split_and_map(data: str) -> list[list[int]]:
     """
     We were doing similar transformations to similar data over day 1 and 2
@@ -12,3 +15,10 @@ def split_and_map(data: str) -> list[list[int]]:
     """
 
     return [list(map(int, line.split())) for line in data.strip().splitlines()]
+
+
+def print_solutions(folder_name: str, solution: Solution) -> None:
+    print(f"\n{folder_name.capitalize()}")
+    print("=" * len(folder_name))
+    for i, answer in enumerate(solution, start=1):
+        print(f"Answer {i}: {answer}")
