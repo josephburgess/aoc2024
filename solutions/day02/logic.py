@@ -10,4 +10,7 @@ def is_safe_report(report: list[int]) -> bool:
     max_gap = max(b-a for a,b in zip(report, report[1:]))
     if max_gap > 3:
         return False
+    min_gap = min(b-a for a,b in zip(report, report[1:]))
+    if min_gap == 0:
+        return False
     return (sorted(report) == report or sorted(report, reverse=True) == report)

@@ -33,3 +33,7 @@ class TestLevelSafety:
     def test_safe_report_large_gap(self):
         data = [1,2,3,9,10]
         assert not is_safe_report(data)
+
+    def test_safe_report_when_number_unchanged(self):
+        data = [1,2,3,3,4]
+        assert not is_safe_report(data)
