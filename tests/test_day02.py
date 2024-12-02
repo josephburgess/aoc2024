@@ -1,3 +1,4 @@
+import pytest
 
 from solutions.day02.logic import is_safe_report, parse_arrays
 
@@ -55,14 +56,33 @@ class TestLevelSafety:
         data = [10, 7, 5, 11]
         assert not is_safe_report(data)
 
+@pytest.fixture
+def real_data():
+    with open("input/day02.txt", "r") as f:
+        return f.read()
+
 class TestSolve:
 
-    def test_solve_first_puzzle(self):
-        with open("input/day02.txt", "r") as f:
-            data = f.read()
-        reports = parse_arrays(data)
+    def test_solve_first_puzzle(self, real_data: str):
+        reports = parse_arrays(real_data)
         count = 0
         for r in reports:
             if is_safe_report(r):
                 count += 1
         assert count == 220
+
+
+    def test_solve_second_puzzle(self, real_data: str):
+        reports = parse_arrays(real_data)
+        count = 0
+        for r in reports:
+            if is_safe_report(r):
+                count += 1
+            else:
+                for index in range(len(r)):
+                    modified_report = r[:index] + r[index + 1:]
+                    if is_safe_report(modified_report):
+                        count += 1
+                        break
+        assert count == 296
+
