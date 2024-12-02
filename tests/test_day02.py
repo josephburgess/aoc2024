@@ -16,3 +16,8 @@ class TestParseLists:
         result = parse_arrays(data)
         assert result == [[1,2,3,4],[5,6,7,8]]
 
+    def test_empty_input(self):
+        data = ""
+        result = parse_arrays(data)
+        assert result == []
+
