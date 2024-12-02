@@ -7,6 +7,7 @@ Solving in Python because it's just a fun language to solve coding problems with
 ## Progress
 
 - [x] Day 1
+- [x] Day 2
 
 ## Solutions
 

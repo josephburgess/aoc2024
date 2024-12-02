@@ -59,7 +59,7 @@ class TestLevelSafety:
 
 class TestIsValidWithRemoval:
     def test_is_valid_with_removal(self):
-        # examples from the puzzle
+        # just using examples from the puzzle to verify for Q2
         assert is_valid_with_removal([7, 6, 4, 2, 1])
         assert not is_valid_with_removal([1, 2, 7, 8, 9])
         assert not is_valid_with_removal([9, 7, 6, 2, 1])
@@ -78,22 +78,10 @@ class TestSolve:
 
     def test_solve_first_puzzle(self, real_data: str):
         reports = parse_arrays(real_data)
-        count = 0
-        for r in reports:
-            if is_safe_report(r):
-                count += 1
+        count = sum(is_safe_report(r) for r in reports)
         assert count == 220
 
     def test_solve_second_puzzle(self, real_data: str):
         reports = parse_arrays(real_data)
-        count = 0
-        for r in reports:
-            if is_safe_report(r):
-                count += 1
-            else:
-                for index in range(len(r)):
-                    modified_report = r[:index] + r[index + 1:]
-                    if is_safe_report(modified_report):
-                        count += 1
-                        break
+        count = sum(is_valid_with_removal(r) for r in reports)
         assert count == 296
