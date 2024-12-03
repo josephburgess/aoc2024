@@ -20,7 +20,7 @@ def extract_conditional_pairs(data: str) -> list[Pair]:
             process_mul = True
         elif match == "don't()":
             process_mul = False
-        elif process_mul and x and y:
+        elif process_mul:
             valid_pairs.append((int(x), int(y)))
 
     return valid_pairs
