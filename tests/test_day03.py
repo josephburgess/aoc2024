@@ -1,5 +1,5 @@
 
-from solutions.day03.solve import extract_pairs, multiply_and_sum
+from solutions.day03.solve import extract_conditional_pairs, extract_pairs, multiply_and_sum
 
 
 class TestExtractPairs:
@@ -19,3 +19,10 @@ class TestMultiplyAndSum:
     def test_puzzle_example(self):
         example = [(2, 4), (5, 5), (11, 8), (8, 5)]
         assert multiply_and_sum(example) == 161
+
+
+class TestExtractWithConditions:
+    def test_puzzle_example(self):
+
+        example = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"
+        assert extract_conditional_pairs(example) == [(2, 4), (8, 5)]
