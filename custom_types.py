@@ -1,1 +1,1 @@
-Solution = tuple[int, int]
+type Pair = tuple[int, int]

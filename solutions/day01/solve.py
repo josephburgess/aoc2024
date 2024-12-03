@@ -1,6 +1,6 @@
 from collections import Counter
 
-from custom_types import Solution
+from custom_types import Pair
 from utils import split_and_map
 
 
@@ -18,7 +18,7 @@ def calculate_similarity_score(left: list[int], right: list[int]) -> int:
     return sum(num * Counter(right).get(num, 0) for num in left)
 
 
-def solve(data: str) -> Solution:
+def solve(data: str) -> Pair:
     left, right = parse_arrays(data)
     total_distance = calculate_distance(left, right)
     similarity_score = calculate_similarity_score(left, right)

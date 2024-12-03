@@ -1,4 +1,4 @@
-from custom_types import Solution
+from custom_types import Pair
 from utils import split_and_map
 
 
@@ -24,7 +24,7 @@ def is_safe_with_removed_item(report: list[int]) -> bool:
     )
 
 
-def solve(data: str) -> Solution:
+def solve(data: str) -> Pair:
     reports = parse_arrays(data)
 
     safe_reports = sum(is_safe_report(r) for r in reports)

@@ -1,4 +1,4 @@
-from custom_types import Solution
+from custom_types import Pair
 
 
 def split_and_map(data: str) -> list[list[int]]:
@@ -17,7 +17,7 @@ def split_and_map(data: str) -> list[list[int]]:
     return [list(map(int, line.split())) for line in data.strip().splitlines()]
 
 
-def print_solutions(folder_name: str, solution: Solution) -> None:
+def print_solutions(folder_name: str, solution: Pair) -> None:
     print(f"\n{folder_name.capitalize()}")
     print("=" * len(folder_name))
     for i, answer in enumerate(solution, start=1):

@@ -1,5 +1,12 @@
+import pytest
 
-from solutions.day03.solve import extract_conditional_pairs, extract_pairs, multiply_and_sum
+from solutions.day03 import extract_conditional_pairs, extract_pairs, multiply_and_sum, solve
+
+
+@pytest.fixture
+def real_data():
+    with open("input/day03.txt", "r") as f:
+        return f.read()
 
 
 class TestExtractPairs:
@@ -26,3 +33,8 @@ class TestExtractWithConditions:
 
         example = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"
         assert extract_conditional_pairs(example) == [(2, 4), (8, 5)]
+
+
+class TestSolve:
+    def test_solve(self, real_data: str):
+        assert solve(real_data) == (168539636, 97529391)

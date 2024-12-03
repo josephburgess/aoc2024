@@ -2,7 +2,7 @@ import importlib
 from collections.abc import Callable
 from pathlib import Path
 
-from custom_types import Solution
+from custom_types import Pair
 from utils import print_solutions
 
 
@@ -20,7 +20,7 @@ def main():
             try:
                 data = input_file.read_text()
                 module = importlib.import_module(f"{solutions_path}.{folder.name}.solve")
-                solve: Callable[[str], Solution] = getattr(module, "solve")
+                solve: Callable[[str], Pair] = getattr(module, "solve")
                 solution = solve(data)
                 print_solutions(folder.name, solution)
 
