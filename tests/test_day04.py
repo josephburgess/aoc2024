@@ -1,6 +1,17 @@
+import pytest
+
+from solutions.day04 import count_xmas, parse_grid, solve
 
 
-from solutions.day04.solve import count_xmas, parse_grid, solve
+@pytest.fixture
+def real_data():
+    with open("input/day04.txt", "r") as f:
+        return f.read()
+
+
+def test_solve(real_data: str):
+    solution_one, _ = solve(real_data)
+    assert solution_one == 2447
 
 
 class TestParseGrid:
@@ -104,3 +115,19 @@ class TestCountXmas:
                 XXXX
             """
         assert count_xmas(parse_grid(example)) == 1
+
+    def test_puzzle_example(self):
+        example = """
+            MMMSXXMASM
+            MSAMXMSMSA
+            AMXSXMAAMM
+            MSAMASMSMX
+            XMASAMXAMM
+            XXAMMXXAMA
+            SMSMSASXSS
+            SAXAMASAAA
+            MAMMMXMMMM
+            MXMXAXMASX
+            """
+
+        assert count_xmas(parse_grid(example)) == 18
