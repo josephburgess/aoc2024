@@ -35,3 +35,12 @@ class TestCountXmas:
             S
         """
         assert count_xmas(parse_grid(example)) == 1
+
+    def test_horizontal_and_vertical(self):
+        example = """
+                XMAS
+                MXXX
+                AXXX
+                SXXX
+            """
+        assert count_xmas(parse_grid(example)) == 2
