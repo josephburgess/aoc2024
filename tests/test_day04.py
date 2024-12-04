@@ -68,3 +68,39 @@ class TestCountXmas:
                 XXXX
             """
         assert count_xmas(parse_grid(example)) == 2
+
+    def test_diagonal(self):
+        example = """
+                XXXX
+                XMXX
+                MXAX
+                XXXS
+            """
+        assert count_xmas(parse_grid(example)) == 1
+
+    def test_diagonal_left(self):
+        example = """
+                XXXX
+                XXMX
+                MAAX
+                SXXS
+            """
+        assert count_xmas(parse_grid(example)) == 1
+
+    def test_up_diagonal_left(self):
+        example = """
+                XXXS
+                XXAX
+                MMAX
+                XXXS
+            """
+        assert count_xmas(parse_grid(example)) == 1
+
+    def test_up_diagonal_right(self):
+        example = """
+                SXXX
+                XAXX
+                MXMX
+                XXXX
+            """
+        assert count_xmas(parse_grid(example)) == 1
