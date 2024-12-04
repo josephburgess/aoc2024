@@ -1,6 +1,6 @@
 import pytest
 
-from solutions.day04 import count_xmas, parse_grid, solve
+from solutions.day04 import count_x_mas, count_xmas, parse_grid, solve
 
 
 @pytest.fixture
@@ -9,9 +9,27 @@ def real_data():
         return f.read()
 
 
-def test_solve(real_data: str):
-    solution_one, _ = solve(real_data)
-    assert solution_one == 2447
+@pytest.fixture
+def example_data():
+    return """
+            MMMSXXMASM
+            MSAMXMSMSA
+            AMXSXMAAMM
+            MSAMASMSMX
+            XMASAMXAMM
+            XXAMMXXAMA
+            SMSMSASXSS
+            SAXAMASAAA
+            MAMMMXMMMM
+            MXMXAXMASX
+            """
+
+
+class TestSolve:
+    def test_solve(self, real_data: str):
+        solution_one, solution_two = solve(real_data)
+        assert solution_one == 2447
+        assert solution_two == 1868
 
 
 class TestParseGrid:
@@ -116,18 +134,19 @@ class TestCountXmas:
             """
         assert count_xmas(parse_grid(example)) == 1
 
-    def test_puzzle_example(self):
-        example = """
-            MMMSXXMASM
-            MSAMXMSMSA
-            AMXSXMAAMM
-            MSAMASMSMX
-            XMASAMXAMM
-            XXAMMXXAMA
-            SMSMSASXSS
-            SAXAMASAAA
-            MAMMMXMMMM
-            MXMXAXMASX
-            """
+    def test_puzzle_example(self, example_data: str):
+        assert count_xmas(parse_grid(example_data)) == 18
 
-        assert count_xmas(parse_grid(example)) == 18
+
+class TestCountXMas:
+
+    def test_single_x_mas(self):
+        example = """
+            MXM
+            XAX
+            SXS
+        """
+        assert count_x_mas(parse_grid(example)) == 1
+
+    def test_example(self, example_data: str):
+        assert count_x_mas(parse_grid(example_data)) == 9
