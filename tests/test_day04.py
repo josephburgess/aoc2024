@@ -20,8 +20,18 @@ class TestParseGrid:
 
 
 class TestCountXmas:
+
     def test_single_horizontal(self):
         example = """
             XMAS
+        """
+        assert count_xmas(parse_grid(example)) == 1
+
+    def test_single_vertical(self):
+        example = """
+            X
+            M
+            A
+            S
         """
         assert count_xmas(parse_grid(example)) == 1
