@@ -8,7 +8,9 @@ def count_xmas(grid: list[list[str]]) -> int:
     word = "XMAS"
     directions = [
         (0, 1),
-        (1, 0)
+        (1, 0),
+        (0, -1),
+        (-1, 0)
     ]
 
     def dfs(row: int, col: int, index: int, row_step: int, col_step: int) -> bool:

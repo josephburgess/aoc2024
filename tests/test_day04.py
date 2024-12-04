@@ -44,3 +44,27 @@ class TestCountXmas:
                 SXXX
             """
         assert count_xmas(parse_grid(example)) == 2
+
+    def test_single_horizontal_reverse(self):
+        example = """
+            SAMX
+        """
+        assert count_xmas(parse_grid(example)) == 1
+
+    def test_single_vertical_reverse(self):
+        example = """
+            S
+            A
+            M
+            X
+        """
+        assert count_xmas(parse_grid(example)) == 1
+
+    def test_horizontal_and_vertical_reverse(self):
+        example = """
+                SAMX
+                AXXX
+                MXXX
+                XXXX
+            """
+        assert count_xmas(parse_grid(example)) == 2
