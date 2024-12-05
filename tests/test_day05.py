@@ -4,8 +4,8 @@ import pytest
 
 from solutions.day05 import parse_rules_and_updates
 from solutions.day05.solve import (
+    categorise_updates,
     determine_relevant_rules,
-    get_compliant_updates,
     is_update_compliant,
     solve,
 )
@@ -84,7 +84,8 @@ class TestHelpers:
 
     def test_get_compliant_updates(self, example_data: str):
         rules, updates = parse_rules_and_updates(example_data)
-        assert len(get_compliant_updates(rules, updates)) == 3
+        compliant, _ = categorise_updates(rules, updates)
+        assert len(compliant) == 3
 
 
 class TestSolve:

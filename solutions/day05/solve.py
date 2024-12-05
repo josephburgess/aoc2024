@@ -45,19 +45,22 @@ def extract_middle_page(update: Update) -> int:
     return update[len(update) // 2]
 
 
-def get_compliant_updates(rules: list[Rule], updates: list[Update]) -> list[Update]:
+def categorise_updates(rules: list[Rule], updates: list[Update]) -> tuple[list[Update], list[Update]]:
     compliant_updates: list[Update] = []
+    non_compliant_updates: list[Update] = []
     for update in updates:
         relevant_rules = determine_relevant_rules(rules, update)
         if is_update_compliant(relevant_rules, update):
             compliant_updates.append(update)
-    return compliant_updates
+        else:
+            non_compliant_updates.append(update)
+    return compliant_updates, non_compliant_updates
 
 
 def solve(data: str) -> Pair:
     total = 0
     rules, updates = parse_rules_and_updates(data)
-    compliant_updates = get_compliant_updates(rules, updates)
+    compliant_updates, _ = categorise_updates(rules, updates)
     for update in compliant_updates:
         total += extract_middle_page(update)
     return (total, 1)
