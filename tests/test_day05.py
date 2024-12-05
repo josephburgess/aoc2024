@@ -109,5 +109,6 @@ class TestHelpers:
 
 class TestSolve:
     def test_solve_real_data(self, real_data: str):
-        solution_one, _ = solve(real_data)
+        solution_one, solution_two = solve(real_data)
         assert solution_one == 4766
+        assert solution_two == 6257
