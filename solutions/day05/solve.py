@@ -2,16 +2,14 @@
 from custom_types import Pair
 
 type Rule = tuple[int, int]
-type Rules = list[Rule]
 type Update = list[int]
-type Updates = list[Update]
 
 
 # Parse the Input:
-def parse_rules_and_updates(data: str) -> tuple[Rules, Updates]:
+def parse_rules_and_updates(data: str) -> tuple[list[Rule], list[Update]]:
     lines = data.strip().splitlines()
-    rules: Rules = []
-    updates: Updates = []
+    rules: list[Rule] = []
+    updates: list[Update] = []
 
     for l in lines:
         if "|" in l:
@@ -25,8 +23,8 @@ def parse_rules_and_updates(data: str) -> tuple[Rules, Updates]:
 # Read the rules and updates.
 # For Each Update:
 # - Filter the relevant rules.
-def determine_relevant_rules(rules: Rules, update: Update) -> Rules:
-    relevant_rules: Rules = []
+def determine_relevant_rules(rules: list[Rule], update: Update) -> list[Rule]:
+    relevant_rules: list[Rule] = []
     for page1, page2 in rules:
         if page1 in update and page2 in update:
             relevant_rules.append((page1, page2))
@@ -36,7 +34,7 @@ def determine_relevant_rules(rules: Rules, update: Update) -> Rules:
 # - Loop through each rule and confirm that the order is maintained.
 
 
-def is_update_compliant(relevant_rules: Rules, update: Update) -> bool:
+def is_update_compliant(relevant_rules: list[Rule], update: Update) -> bool:
     for page1, page2 in relevant_rules:
         if update.index(page1) >= update.index(page2):
             return False
@@ -47,10 +45,19 @@ def extract_middle_page(update: Update) -> int:
     return update[len(update) // 2]
 
 
-def get_compliant_updates(rules: Rules, updates: Updates) -> Updates:
-    compliant_updates: Updates = []
+def get_compliant_updates(rules: list[Rule], updates: list[Update]) -> list[Update]:
+    compliant_updates: list[Update] = []
     for update in updates:
         relevant_rules = determine_relevant_rules(rules, update)
         if is_update_compliant(relevant_rules, update):
             compliant_updates.append(update)
     return compliant_updates
+
+
+def solve(data: str) -> Pair:
+    total = 0
+    rules, updates = parse_rules_and_updates(data)
+    compliant_updates = get_compliant_updates(rules, updates)
+    for update in compliant_updates:
+        total += extract_middle_page(update)
+    return (total, 1)

@@ -7,6 +7,7 @@ from solutions.day05.solve import (
     determine_relevant_rules,
     get_compliant_updates,
     is_update_compliant,
+    solve,
 )
 
 
@@ -46,8 +47,8 @@ def example_data():
 
 @pytest.fixture
 def real_data():
-    with open("input/day05.txt", "-r") as f:
-        return f.read
+    with open("input/day05.txt", "r") as f:
+        return f.read()
 
 
 class TestHelpers:
@@ -84,3 +85,9 @@ class TestHelpers:
     def test_get_compliant_updates(self, example_data: str):
         rules, updates = parse_rules_and_updates(example_data)
         assert len(get_compliant_updates(rules, updates)) == 3
+
+
+class TestSolve:
+    def test_solve_real_data(self, real_data: str):
+        solution_one, _ = solve(real_data)
+        assert solution_one == 4766
