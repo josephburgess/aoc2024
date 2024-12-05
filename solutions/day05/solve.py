@@ -47,14 +47,16 @@ def extract_middle_page(update: Update) -> int:
 
 def categorise_updates(rules: list[Rule], updates: list[Update]) -> tuple[list[Update], list[Update]]:
     compliant_updates: list[Update] = []
-    non_compliant_updates: list[Update] = []
+    fixed_updates: list[Update] = []
     for update in updates:
         relevant_rules = determine_relevant_rules(rules, update)
         if is_update_compliant(relevant_rules, update):
             compliant_updates.append(update)
         else:
-            non_compliant_updates.append(update)
-    return compliant_updates, non_compliant_updates
+            fixed = fix_non_compliant_update(relevant_rules, update)
+            fixed_updates.append(fixed)
+    return compliant_updates, fixed_updates
+
 
 def fix_non_compliant_update(relevant_rules: list[Rule], update: Update) -> Update:
     while True:
@@ -75,8 +77,11 @@ def fix_non_compliant_update(relevant_rules: list[Rule], update: Update) -> Upda
 
 def solve(data: str) -> Pair:
     total = 0
+    total_fixed = 0
     rules, updates = parse_rules_and_updates(data)
-    compliant_updates, _ = categorise_updates(rules, updates)
+    compliant_updates, fixed_updates = categorise_updates(rules, updates)
     for update in compliant_updates:
         total += extract_middle_page(update)
-    return (total, 1)
+    for update in fixed_updates:
+        total_fixed += extract_middle_page(update)
+    return (total, total_fixed)
