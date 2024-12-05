@@ -3,7 +3,11 @@ from textwrap import dedent
 import pytest
 
 from solutions.day05 import parse_rules_and_updates
-from solutions.day05.solve import determine_relevant_rules
+from solutions.day05.solve import (
+    determine_relevant_rules,
+    get_compliant_updates,
+    is_update_compliant,
+)
 
 
 @pytest.fixture
@@ -46,7 +50,7 @@ def real_data():
         return f.read
 
 
-class TestParseRules:
+class TestHelpers:
     def test_parses_rules_from_input(self):
         data = dedent("""\
             47|53
@@ -62,10 +66,21 @@ class TestParseRules:
         assert rules == [(47, 53), (97, 13), (97, 61)]
         assert updates == [[75, 47, 61, 53, 29], [75, 29, 13]]
 
-
-class TestRelevantRules:
     def test_relevant_rules(self):
         rules = [(47, 53), (97, 13), (97, 61)]
         update = [75, 47, 61, 53, 29]
 
         assert determine_relevant_rules(rules, update) == [(47, 53)]
+
+    def test_is_update_compliant(self):
+        relevant_rules = [(47, 53)]
+        update = [75, 47, 61, 53, 29]
+        assert is_update_compliant(relevant_rules, update)
+
+        relevant_rules = [(53, 47)]
+        update = [75, 47, 61, 53, 29]
+        assert not is_update_compliant(relevant_rules, update)
+
+    def test_get_compliant_updates(self, example_data: str):
+        rules, updates = parse_rules_and_updates(example_data)
+        assert len(get_compliant_updates(rules, updates)) == 3
