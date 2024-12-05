@@ -56,6 +56,22 @@ def categorise_updates(rules: list[Rule], updates: list[Update]) -> tuple[list[U
             non_compliant_updates.append(update)
     return compliant_updates, non_compliant_updates
 
+def fix_non_compliant_update(relevant_rules: list[Rule], update: Update) -> Update:
+    while True:
+        fixed = False
+
+        for page1, page2 in relevant_rules:
+            i_one, i_two = update.index(page1), update.index(page2)
+
+            if i_one >= i_two:
+                update[i_one], update[i_two] = update[i_two], update[i_one]
+                fixed = True
+
+        if not fixed:
+            break
+
+    return update
+
 
 def solve(data: str) -> Pair:
     total = 0

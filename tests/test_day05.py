@@ -4,8 +4,10 @@ import pytest
 
 from solutions.day05 import parse_rules_and_updates
 from solutions.day05.solve import (
+    Update,
     categorise_updates,
     determine_relevant_rules,
+    fix_non_compliant_update,
     is_update_compliant,
     solve,
 )
@@ -86,6 +88,23 @@ class TestHelpers:
         rules, updates = parse_rules_and_updates(example_data)
         compliant, _ = categorise_updates(rules, updates)
         assert len(compliant) == 3
+
+    def test_fix_non_compliant_updates(self, example_data: str):
+        fixed_updates: list[Update] = []
+
+        rules, updates = parse_rules_and_updates(example_data)
+        non_compliant_updates = [updates[3], updates[4], updates[5]]
+        expected = [
+            [97, 75, 47, 61, 53],
+            [61, 29, 13],
+            [97, 75, 47, 29, 13],
+        ]
+
+        for update in non_compliant_updates:
+            relevant_rules = determine_relevant_rules(rules, update)
+            fixed_updates.append(fix_non_compliant_update(relevant_rules, update))
+
+        assert fixed_updates == expected
 
 
 class TestSolve:
