@@ -12,6 +12,7 @@ Solving in Python because it's just a fun language to solve coding problems with
 | [Day 2: Red-Nosed Reports](https://adventofcode.com/2024/day/2)  | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day02/solve.py) | ⭐️⭐️ |
 | [Day 3: Mull It Over](https://adventofcode.com/2024/day/3)       | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day03/solve.py) | ⭐️⭐️ |
 | [Day 4: Ceres Search](https://adventofcode.com/2024/day/4)       | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day04/solve.py) | ⭐️⭐️ |
+| [Day 5: Print Queue](https://adventofcode.com/2024/day/5)        | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day05/solve.py) | ⭐️⭐️ |
 
 ## Answers
 
