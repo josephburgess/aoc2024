@@ -2,13 +2,13 @@ from textwrap import dedent
 
 import pytest
 
-from solutions.day05 import parse_rules_and_updates
 from solutions.day05.solve import (
     Update,
     categorise_updates,
     determine_relevant_rules,
     fix_non_compliant_update,
     is_update_compliant,
+    parse_rules_and_updates,
     solve,
 )
 
