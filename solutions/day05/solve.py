@@ -5,7 +5,6 @@ type Rule = tuple[int, int]
 type Update = list[int]
 
 
-# Parse the Input:
 def parse_rules_and_updates(data: str) -> tuple[list[Rule], list[Update]]:
     lines = data.strip().splitlines()
     rules: list[Rule] = []
@@ -20,9 +19,6 @@ def parse_rules_and_updates(data: str) -> tuple[list[Rule], list[Update]]:
     return rules, updates
 
 
-# Read the rules and updates.
-# For Each Update:
-# - Filter the relevant rules.
 def determine_relevant_rules(rules: list[Rule], update: Update) -> list[Rule]:
     relevant_rules: list[Rule] = []
     for page1, page2 in rules:
@@ -30,31 +26,27 @@ def determine_relevant_rules(rules: list[Rule], update: Update) -> list[Rule]:
             relevant_rules.append((page1, page2))
     return relevant_rules
 
-# Check compliance:
-# - Loop through each rule and confirm that the order is maintained.
-
 
 def is_update_compliant(relevant_rules: list[Rule], update: Update) -> bool:
-    for page1, page2 in relevant_rules:
-        if update.index(page1) >= update.index(page2):
-            return False
-    return True
+    return all(update.index(page1) < update.index(page2) for page1, page2 in relevant_rules)
 
 
-def extract_middle_page(update: Update) -> int:
+def get_middle_page(update: Update) -> int:
     return update[len(update) // 2]
 
 
 def categorise_updates(rules: list[Rule], updates: list[Update]) -> tuple[list[Update], list[Update]]:
     compliant_updates: list[Update] = []
     fixed_updates: list[Update] = []
+
     for update in updates:
         relevant_rules = determine_relevant_rules(rules, update)
+
         if is_update_compliant(relevant_rules, update):
             compliant_updates.append(update)
         else:
-            fixed = fix_non_compliant_update(relevant_rules, update)
-            fixed_updates.append(fixed)
+            fixed_updates.append(fix_non_compliant_update(relevant_rules, update))
+
     return compliant_updates, fixed_updates
 
 
@@ -63,10 +55,10 @@ def fix_non_compliant_update(relevant_rules: list[Rule], update: Update) -> Upda
         fixed = False
 
         for page1, page2 in relevant_rules:
-            i_one, i_two = update.index(page1), update.index(page2)
+            i1, i2 = update.index(page1), update.index(page2)
 
-            if i_one >= i_two:
-                update[i_one], update[i_two] = update[i_two], update[i_one]
+            if i1 >= i2:
+                update[i1], update[i2] = update[i2], update[i1]
                 fixed = True
 
         if not fixed:
@@ -76,12 +68,8 @@ def fix_non_compliant_update(relevant_rules: list[Rule], update: Update) -> Upda
 
 
 def solve(data: str) -> Pair:
-    total = 0
-    total_fixed = 0
     rules, updates = parse_rules_and_updates(data)
-    compliant_updates, fixed_updates = categorise_updates(rules, updates)
-    for update in compliant_updates:
-        total += extract_middle_page(update)
-    for update in fixed_updates:
-        total_fixed += extract_middle_page(update)
-    return (total, total_fixed)
+    compliant, fixed = categorise_updates(rules, updates)
+    total_compliant = sum(get_middle_page(update) for update in compliant)
+    total_fixed = sum(get_middle_page(update) for update in fixed)
+    return total_compliant, total_fixed
