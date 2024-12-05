@@ -1,6 +1,7 @@
 import pytest
 
 from solutions.day05 import parse_rules_and_updates
+from solutions.day05.solve import determine_relevant_rules
 
 
 @pytest.fixture
@@ -57,3 +58,11 @@ class TestParseRules:
         rules, updates = parse_rules_and_updates(data)
         assert rules == [(47, 53), (97, 13), (97, 61)]
         assert updates == [[75, 47, 61, 53, 29], [75, 29, 13]]
+
+
+class TestRelevantRules:
+    def test_relevant_rules(self):
+        rules = [(47, 53), (97, 13), (97, 61)]
+        update = [75, 47, 61, 53, 29]
+
+        assert determine_relevant_rules(rules, update) == [(47, 53)]
