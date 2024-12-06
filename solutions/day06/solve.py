@@ -1,4 +1,6 @@
 
+from datetime import datetime
+
 from custom_types import Grid
 from utils import parse_grid
 
@@ -36,18 +38,9 @@ def move(position: Location, direction: str) -> Location:
     return r + row_step, c + col_step
 
 
-def solve(data: str):
-    start = (0, 0)
-    direction = ""
-    grid = parse_grid(data)
-    for r, row in enumerate(grid):
-        for c, location in enumerate(row):
-            if location in DIRECTIONS:
-                start = (r, c)
-                direction = location
-
+def run_patrol(position: Location, direction: str, grid: Grid) -> set[Location]:
     visited: set[Location] = set()
-    position = start
+    start = position
     visited.add(start)
 
     while True:
@@ -63,7 +56,70 @@ def solve(data: str):
             position = next_position
             visited.add(position)
 
-    return len(visited), 1
+    return visited
+
+
+def run_patrol_with_obstacle(start_position: Location, start_direction: str, grid: Grid) -> int:
+    loop_count = 0
+
+    for r in range(len(grid)):
+        for c in range(len(grid[0])):
+            if grid[r][c] == '.':
+                grid[r][c] = '#'
+
+                position = start_position
+                direction = start_direction
+                visited: set[tuple[Location, str]] = set()
+                is_loop = False
+
+                while True:
+                    state = (position, direction)
+                    if state in visited:
+                        # if visited same spot in same dirction before then issa loop
+                        is_loop = True
+                        break
+                    visited.add(state)
+
+                    next_position = move(position, direction)
+                    if not in_bounds(next_position, grid):
+                        # oob == no loop
+                        break
+
+                    row, col = next_position
+                    if grid[row][col] == '#':
+                        direction = turn_right(direction)
+                    else:
+                        position = next_position
+
+                # clean up obstacle and go again
+                grid[r][c] = '.'
+
+                if is_loop:
+                    loop_count += 1
+
+    return loop_count
+
+
+def solve(data: str):
+
+    time = datetime.now()
+    start = (0, 0)
+    direction = ""
+    grid = parse_grid(data)
+    for r, row in enumerate(grid):
+        for c, location in enumerate(row):
+            if location in DIRECTIONS:
+                start = (r, c)
+                direction = location
+
+    visited = run_patrol(start, direction, grid)
+
+    loop_count = run_patrol_with_obstacle(start, direction, grid)
+
+    end = datetime.now()
+    total = end - time
+    print(f"ran in {total:.4f} seconds")
+    return len(visited), loop_count
 
 
 # - parse the input map into a 2d list.
@@ -79,3 +135,5 @@ def solve(data: str):
 #
 # - output the size of the set.
 #
+# part 2: stick an obstacle on every open space and run the patrol
+# store BOTH location and direction in a set - if we run into a dupe for both then we're looping
