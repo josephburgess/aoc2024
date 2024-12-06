@@ -22,3 +22,7 @@ def print_solutions(folder_name: str, solution: Pair) -> None:
     print("=" * len(folder_name))
     for i, answer in enumerate(solution, start=1):
         print(f"Answer {i}: {answer}")
+
+
+def parse_grid(data: str):
+    return [list(row.strip()) for row in data.strip().splitlines()]
