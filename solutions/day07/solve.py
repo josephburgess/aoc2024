@@ -21,7 +21,11 @@ def multiply(a: int, b: int) -> int:
     return a * b
 
 
-def can_produce_target(target: int, numbers: list[int]) -> bool:
+def concatenate(a: int, b: int) -> int:
+    return int(f"{a}{b}")
+
+
+def can_produce_target(target: int, numbers: list[int], part_two: bool = False) -> bool:
     def dfs(current_value: int, i: int) -> bool:
         if i == len(numbers):
             return current_value == target
@@ -32,6 +36,10 @@ def can_produce_target(target: int, numbers: list[int]) -> bool:
         if dfs(multiply(current_value, numbers[i]), i + 1):
             return True
 
+        if part_two:
+            if dfs(concatenate(current_value, numbers[i]), i + 1):
+                return True
+
         return False
 
     return dfs(numbers[0], 1)
@@ -40,11 +48,14 @@ def can_produce_target(target: int, numbers: list[int]) -> bool:
 def solve(data: str) -> Pair:
     equations = parse_input(data)
     test_values: list[int] = []
+    test_values_two: list[int] = []
     for e in equations:
         target, numbers = e
         if can_produce_target(target, numbers):
             test_values.append(target)
-    return (sum(test_values), 1)
+        if can_produce_target(target, numbers, part_two=True):
+            test_values_two.append(target)
+    return (sum(test_values), sum(test_values_two))
 
 # compute_possible_values(numbers)	recursive? -> set of possible results if one number return set of one
 # return possible_values
