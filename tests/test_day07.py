@@ -2,7 +2,7 @@ from textwrap import dedent
 
 import pytest
 
-from solutions.day07.solve import parse_input, solve
+from solutions.day07 import parse_input, solve
 
 
 @pytest.fixture
