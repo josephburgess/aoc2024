@@ -114,7 +114,12 @@ def solve(data: str):
 
     visited = run_patrol(start, direction, grid)
 
-    loop_count = run_patrol_with_obstacle(start, direction, grid)
+    # NOTE: Commenting this out so that we can skip the long running computation when running
+    # the root `main.py`.
+    #
+    # loop_count = run_patrol_with_obstacle(start, direction, grid)
+
+    loop_count = 1
 
     end = datetime.now()
     total = (end - time).total_seconds()
