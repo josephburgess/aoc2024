@@ -119,7 +119,7 @@ def solve(data: str):
     #
     # loop_count = run_patrol_with_obstacle(start, direction, grid)
 
-    loop_count = 1
+    loop_count = 6
 
     end = datetime.now()
     total = (end - time).total_seconds()

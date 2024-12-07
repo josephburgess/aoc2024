@@ -2,7 +2,7 @@ from textwrap import dedent
 
 import pytest
 
-from solutions.day06.solve import solve
+from solutions.day07.solve import parse_input, solve
 
 
 @pytest.fixture
@@ -23,4 +23,16 @@ def example_data():
 
 
 def test_example_data(example_data: str):
-    assert solve(example_data) == 3749, 1
+    assert solve(example_data) == (3749, 1)
+
+
+class TestHelpers:
+    def test_parse_data(self):
+
+        data = dedent(
+            """
+        190: 10 19
+        3267: 81 40 27
+        """
+        )
+        assert parse_input(data) == [(190, [10, 19]), (3267, [81, 40, 27])]

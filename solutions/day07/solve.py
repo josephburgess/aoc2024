@@ -1,6 +1,15 @@
 from custom_types import Pair
 
-# parse_input(data) -> tuple[target, numbers]
+
+def parse_input(data) -> list[tuple[int, list[int]]]:
+    equations = []
+    for line in data.strip().splitlines():
+        target, numbers = line.split(":")
+        target = int(target.strip())
+        numbers = list(map(int, numbers.strip().split()))
+        equations.append((target, numbers))
+    return equations
+
 # can_produce_target(target, numbers) -> bool
 # compute_possible_values(numbers)	recursive? -> possible results
 # get_available_operators() -> list[Callable[operators]]
