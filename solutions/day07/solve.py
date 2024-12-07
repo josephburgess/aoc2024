@@ -25,7 +25,7 @@ def concatenate(a: int, b: int) -> int:
     return int(f"{a}{b}")
 
 
-def can_produce_target(target: int, numbers: list[int], concatenate: bool = False) -> bool:
+def can_produce_target(target: int, numbers: list[int], check_concat: bool = False) -> bool:
     def dfs(current_value: int, i: int) -> bool:
         if i == len(numbers):
             return current_value == target
@@ -36,7 +36,7 @@ def can_produce_target(target: int, numbers: list[int], concatenate: bool = Fals
         if dfs(multiply(current_value, numbers[i]), i + 1):
             return True
 
-        if concatenate:
+        if check_concat:
             if dfs(concatenate(current_value, numbers[i]), i + 1):
                 return True
 
@@ -53,7 +53,7 @@ def solve(data: str) -> Pair:
         target, numbers = e
         if can_produce_target(target, numbers):
             test_values.append(target)
-        if can_produce_target(target, numbers, concatenate=True):
+        if can_produce_target(target, numbers, check_concat=True):
             test_values_two.append(target)
     return (sum(test_values), sum(test_values_two))
 
