@@ -117,7 +117,7 @@ def solve(data: str):
     loop_count = run_patrol_with_obstacle(start, direction, grid)
 
     end = datetime.now()
-    total = end - time
+    total = (end - time).total_seconds()
     print(f"ran in {total:.4f} seconds")
     return len(visited), loop_count
 
