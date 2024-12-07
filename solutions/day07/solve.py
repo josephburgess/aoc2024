@@ -25,7 +25,7 @@ def concatenate(a: int, b: int) -> int:
     return int(f"{a}{b}")
 
 
-def can_produce_target(target: int, numbers: list[int], part_two: bool = False) -> bool:
+def can_produce_target(target: int, numbers: list[int], concatenate: bool = False) -> bool:
     def dfs(current_value: int, i: int) -> bool:
         if i == len(numbers):
             return current_value == target
@@ -36,7 +36,7 @@ def can_produce_target(target: int, numbers: list[int], part_two: bool = False) 
         if dfs(multiply(current_value, numbers[i]), i + 1):
             return True
 
-        if part_two:
+        if concatenate:
             if dfs(concatenate(current_value, numbers[i]), i + 1):
                 return True
 
@@ -53,11 +53,11 @@ def solve(data: str) -> Pair:
         target, numbers = e
         if can_produce_target(target, numbers):
             test_values.append(target)
-        if can_produce_target(target, numbers, part_two=True):
+        if can_produce_target(target, numbers, concatenate=True):
             test_values_two.append(target)
     return (sum(test_values), sum(test_values_two))
 
-# compute_possible_values(numbers)	recursive? -> set of possible results if one number return set of one
+# compute_possible_values(numbers)recursive? -> set of possible results if one number return set of one
 # return possible_values
 # can_produce_target(target, numbers) -> bool - is target in list of possible vals
 # add(a, b) -> int
