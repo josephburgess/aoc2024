@@ -12,13 +12,42 @@ def parse_input(data: str) -> list[Equation]:
         equations.append((target, numbers))
     return equations
 
-# compute_possible_values(numbers)	recursive? -> list of possible results
-# can_produce_target(target, numbers) -> bool - is target in list of possible vals
-# get_available_operators() -> list[Callable[operators]]
-# apply_operator(left, right, operator) -> int
-# add(a, b) -> int
-# multiply(a, b) -> int
+
+def add(a: int, b: int) -> int:
+    return a + b
+
+
+def multiply(a: int, b: int) -> int:
+    return a * b
+
+
+def can_produce_target(target: int, numbers: list[int]) -> bool:
+    def dfs(current_value: int, i: int) -> bool:
+        if i == len(numbers):
+            return current_value == target
+
+        if dfs(add(current_value, numbers[i]), i + 1):
+            return True
+
+        if dfs(multiply(current_value, numbers[i]), i + 1):
+            return True
+
+        return False
+
+    return dfs(numbers[0], 1)
 
 
 def solve(data: str) -> Pair:
-    return (3749, 1)
+    equations = parse_input(data)
+    test_values: list[int] = []
+    for e in equations:
+        target, numbers = e
+        if can_produce_target(target, numbers):
+            test_values.append(target)
+    return (sum(test_values), 1)
+
+# compute_possible_values(numbers)	recursive? -> set of possible results if one number return set of one
+# return possible_values
+# can_produce_target(target, numbers) -> bool - is target in list of possible vals
+# add(a, b) -> int
+# multiply(a, b) -> int
