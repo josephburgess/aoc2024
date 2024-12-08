@@ -30,10 +30,10 @@ def locate_antinodes(antennas: AntennaLocationMap, grid: Grid) -> set[Coordinate
             antinode1 = (r1 - dr, c1 - dc)
             antinode2 = (r2 + dr, c2 + dc)
 
-            if 0 <= antinode1[0] < rows and 0 <= antinode1[1] < cols:
+            if in_bounds(antinode1, rows, cols):
                 antinodes.add(antinode1)
 
-            if 0 <= antinode2[0] < rows and 0 <= antinode2[1] < cols:
+            if in_bounds(antinode2, rows, cols):
                 antinodes.add(antinode2)
 
     return antinodes
@@ -44,7 +44,7 @@ def locate_antinodes_ignore_dist(antennas: AntennaLocationMap, grid: Grid) -> se
     antinodes: set[Coordinate] = set()
 
     def dfs(r: int, c: int, dr: int, dc: int):
-        if not (0 <= r < rows and 0 <= c < cols):
+        if not in_bounds((r, c), rows, cols):
             return
         antinodes.add((r, c))
         dfs(r + dr, c + dc, dr, dc)
@@ -64,6 +64,11 @@ def locate_antinodes_ignore_dist(antennas: AntennaLocationMap, grid: Grid) -> se
             dfs(r2 + dr, c2 + dc, dr, dc)
 
     return antinodes
+
+
+def in_bounds(location: Coordinate, rows: int, cols: int) -> bool:
+    r, c = location
+    return 0 <= r < rows and 0 <= c < cols
 
 
 def solve(data: str):
