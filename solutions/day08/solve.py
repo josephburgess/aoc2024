@@ -39,11 +39,39 @@ def locate_antinodes(antennas: AntennaLocationMap, grid: Grid) -> set[Coordinate
     return antinodes
 
 
+def locate_antinodes_ignore_dist(antennas: AntennaLocationMap, grid: Grid) -> set[Coordinate]:
+    rows, cols = len(grid), len(grid[0])
+    antinodes: set[Coordinate] = set()
+
+    def dfs(r: int, c: int, dr: int, dc: int):
+        if not (0 <= r < rows and 0 <= c < cols):
+            return
+        antinodes.add((r, c))
+        dfs(r + dr, c + dc, dr, dc)
+
+    for _, locations in antennas.items():
+        if len(locations) < 2:
+            continue
+        for (r1, c1), (r2, c2) in combinations(locations, 2):
+            dr, dc = r2 - r1, c2 - c1
+
+            # add the antennas themselves
+            antinodes.add((r1, c1))
+            antinodes.add((r2, c2))
+
+            # recursively step outward in each dir
+            dfs(r1 - dr, c1 - dc, -dr, -dc)
+            dfs(r2 + dr, c2 + dc, dr, dc)
+
+    return antinodes
+
+
 def solve(data: str):
     grid = parse_grid(data)
     antennas = locate_antennas(grid)
     antinodes = locate_antinodes(antennas, grid)
-    return (len(antinodes), 1)
+    accurate_antinodes = locate_antinodes_ignore_dist(antennas, grid)
+    return (len(antinodes), len(accurate_antinodes))
 
 # Parse into grid
 # find all non . chars
@@ -69,4 +97,5 @@ def solve(data: str):
 # 10............
 # 11............
 #
-#
+# part 2 - another dfs? step outwards recursively until hitting oob
+# add each paired antenna to the list of antinodes

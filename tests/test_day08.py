@@ -25,4 +25,4 @@ def example_data():
 
 
 def test_example_data(example_data: str):
-    assert solve(example_data) == (14, 1)
+    assert solve(example_data) == (14, 34)
