@@ -1,5 +1,8 @@
 
-def parse_disk_map(data: str) -> list[int | str]:
+type Disk = list[int | str]
+
+
+def parse_disk_map(data: str) -> Disk:
     disk: list[int | str] = []
     file_id = 0
 
@@ -14,8 +17,32 @@ def parse_disk_map(data: str) -> list[int | str]:
     return disk
 
 
+def compact_disk(disk: Disk) -> Disk:
+    left = 0
+    right = len(disk) - 1
+
+    while left < right:
+        if disk[left] == '.':
+            while right > left and disk[right] == '.':
+                right -= 1
+            if right > left:
+                disk[left], disk[right] = disk[right], disk[left]
+        left += 1
+
+    return disk
+
+
+def calculate_checksum(disk: Disk) -> int:
+    checksum = 0
+    for i, block in enumerate(disk):
+        if block != '.':
+            checksum += i * int(block)
+    return checksum
+
+
 def solve():
     pass
+
 # odd positions - file sizes
 # even - free space sizes
 # visual- input: 12345 - 1 file, 2 spaces, 3file, 4spaces, 5files
@@ -40,21 +67,9 @@ def solve():
 #
 # calculate checksum - for each block, (position) * (file ID)
 
-# parse_disk_map(input) —
-# disk = [], fileid = 0
-# for i from 0 > len(input)
-# if i % 2 == 0:
+# parse_disk_map(data) -> list[int|str]
 #
-# compact_disk(disk) — Moves file blocks left to fill gaps.
-# left = 0
-# while left <len(disk)and disk[left] != 0, left += 1
-# if left >= len(disk) break
-# right = left +1
-# while right < len(disk)and disk[right] =='.', right +=1
-# if right >= len(disk) break
-# disk[left] = disk[right]
-# disk[right] = .
-# left += 1
+# compact_disk(disk) -> moves file blocks left to fill gaps.
 #
 # calculate_checksum(disk) — Computes the checksum of the final disk state.
 # checksum = 0
