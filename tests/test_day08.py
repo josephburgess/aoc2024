@@ -2,7 +2,7 @@ from textwrap import dedent
 
 import pytest
 
-from solutions.day08.solve import solve
+from solutions.day08 import solve
 
 
 @pytest.fixture
