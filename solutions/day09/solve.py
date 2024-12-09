@@ -5,8 +5,9 @@ type Disk = list[int | str]
 def parse_disk_map(data: str) -> Disk:
     disk: list[int | str] = []
     file_id = 0
+    filtered_data = ''.join(filter(str.isdigit, data))
 
-    for i, char in enumerate(data):
+    for i, char in enumerate(filtered_data):
         size = int(char)
         if i % 2 == 0:
             disk.extend([file_id] * size)
@@ -40,8 +41,13 @@ def calculate_checksum(disk: Disk) -> int:
     return checksum
 
 
-def solve():
-    pass
+def solve(data: str):
+    disk_map = parse_disk_map(data)
+    compact = compact_disk(disk_map)
+    checksum = calculate_checksum(compact)
+
+    return (checksum, 1)
+
 
 # odd positions - file sizes
 # even - free space sizes

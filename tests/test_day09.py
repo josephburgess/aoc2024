@@ -1,11 +1,17 @@
 import pytest
 
-from solutions.day09 import Disk, compact_disk, parse_disk_map, solve
+from solutions.day09 import compact_disk, parse_disk_map, solve
 
 
 @pytest.fixture
 def example_data():
     return "2333133121414131402"
+
+
+@pytest.fixture
+def real_data():
+    with open("input/day09.txt", "r") as f:
+        return f.read()
 
 
 def test_parse_disk(example_data: str):
@@ -18,4 +24,8 @@ def test_compact_disk(example_data: str):
 
 
 def test_example_data(example_data: str):
-    pass
+    assert solve(example_data) == (1928, 1)
+
+
+def test_real_data(real_data: str):
+    assert solve(real_data) == (6386640365805, 1)
