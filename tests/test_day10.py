@@ -2,7 +2,7 @@ from textwrap import dedent
 
 import pytest
 
-from solutions.day10.solve import find_trailheads, parse_trail_map
+from solutions.day10.solve import find_trailheads, parse_trail_map, solve
 
 
 @pytest.fixture
@@ -31,5 +31,6 @@ def test_parse_trail_map():
     trail_map = parse_trail_map(data)
     assert find_trailheads(trail_map) == [(0, 0)]
 
-# def test_example_data(example_data: str):
-    # assert solve(example_data) == (36, 1)
+
+def test_example_data(example_data: str):
+    assert solve(example_data) == (36, 1)

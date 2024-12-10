@@ -35,9 +35,42 @@ def find_trailheads(grid: TrailMap) -> list[Location]:
     return trailheads
 
 
+def in_bounds(r: int, c: int, grid: TrailMap) -> bool:
+    return 0 <= r < len(grid) and 0 <= c < len(grid[0])
+
+
+def dfs(grid: TrailMap, r: int, c: int, visited: set[Location], reachable_summits: set[Location]):
+    if not in_bounds(r, c, grid):
+        return
+    if (r, c) in visited:
+        return
+
+    visited.add((r, c))
+    current_height = grid[r][c]
+    if current_height == 9:
+        reachable_summits.add((r, c))
+
+    for dr, dc in DIRECTIONS:
+        new_row, new_col = r + dr, c + dc
+        if in_bounds(new_row, new_col, grid):
+            if grid[new_row][new_col] == current_height + 1:
+                dfs(grid, new_row, new_col, visited, reachable_summits)
+
+
 def calculate_trail_scores(grid: TrailMap) -> int:
-    return 1
+    total_score = 0
+    trailheads = find_trailheads(grid)
+    for x, y in trailheads:
+        visited: set[Location] = set()
+        reachable_summits: set[Location] = set()
+        dfs(grid, x, y, visited, reachable_summits)
+        score = len(reachable_summits)
+        total_score += score
+
+    return total_score
 
 
 def solve(data: str):
-    return (36, 1)
+    trail_map = parse_trail_map(data)
+    score = calculate_trail_scores(trail_map)
+    return (score, 1)
