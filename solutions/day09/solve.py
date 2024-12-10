@@ -124,9 +124,10 @@ def solve(data: str):
 #
 # compact_disk(disk) -> moves file blocks left to fill gaps.
 #
-# calculate_checksum(disk) — Computes the checksum of the final disk state.
-# checksum = 0
-# for i, block in enumerate(disk):
-#     if block != '.':
-#         checksum += i * int(block)
-# return checksum
+# calculate_checksum(disk) -> int  - for i/block in disk, if not space, checksum += i * block
+#
+#
+# pt 2
+# find files, store the start/indices/size and sort reverse
+# find first free space that can accommodate each file
+# move and mark original space as free
