@@ -33,4 +33,4 @@ def test_parse_trail_map():
 
 
 def test_example_data(example_data: str):
-    assert solve(example_data) == (36, 1)
+    assert solve(example_data) == (36, 81)
