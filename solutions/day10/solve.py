@@ -13,7 +13,7 @@
 # multiple paths to the same 9 should only be counted once
 # tracking of visited cells - trailID? store visited states for each trailhead separately?
 
-from custom_types import Location
+from custom_types import Location, Pair
 
 type TrailMap = list[list[int]]
 
@@ -24,18 +24,17 @@ def parse_trail_map(data: str) -> TrailMap:
     return [[int(cell) for cell in row.strip()] for row in data.strip().splitlines()]
 
 
-def find_trailheads(grid: TrailMap) -> list[Location]:
-    trailheads: list[Location] = []
-    for i in range(len(grid)):
-        for j in range(len(grid[0])):
-            if grid[i][j] == 0:
-                trailheads.append((i, j))
-
-    return trailheads
-
-
 def in_bounds(r: int, c: int, grid: TrailMap) -> bool:
     return 0 <= r < len(grid) and 0 <= c < len(grid[0])
+
+
+def find_trailheads(grid: TrailMap) -> list[Location]:
+    return [
+        (r, c)
+        for r in range(len(grid))
+        for c in range(len(grid[0]))
+        if grid[r][c] == 0
+    ]
 
 
 def dfs(
@@ -43,43 +42,44 @@ def dfs(
     r: int,
     c: int,
     visited: set[Location],
-    reachable_summits: set[Location],
+    summits: set[Location],
     path: list[Location],
     distinct_paths: set[tuple[Location, ...]]
 ):
-    if not in_bounds(r, c, grid):
-        return
-    if (r, c) in visited:
+    if not in_bounds(r, c, grid) or (r, c) in visited:
         return
 
     visited.add((r, c))
     path.append((r, c))
     current_height = grid[r][c]
+
     if current_height == 9:
-        reachable_summits.add((r, c))
+        summits.add((r, c))
         distinct_paths.add(tuple(path))
 
     for dr, dc in DIRECTIONS:
-        new_row, new_col = r + dr, c + dc
-        if in_bounds(new_row, new_col, grid):
-            if grid[new_row][new_col] == current_height + 1:
-                dfs(grid, new_row, new_col, visited, reachable_summits, path, distinct_paths)
+        nr, nc = r + dr, c + dc
+        if in_bounds(nr, nc, grid) and grid[nr][nc] == current_height + 1:
+            dfs(grid, nr, nc, visited, summits, path, distinct_paths)
 
     _ = path.pop()
     visited.remove((r, c))
 
 
-def calculate_trail_scores(grid: TrailMap) -> tuple[int, int]:
+def calculate_trail_scores(grid: TrailMap) -> Pair:
     total_score = 0
     total_rating = 0
     trailheads = find_trailheads(grid)
+
     for r, c in trailheads:
-        visited: set[Location] = set()
-        reachable_summits: set[Location] = set()
-        path: list[Location] = []
-        distinct_paths: set[tuple[Location, ...]] = set()
-        dfs(grid, r, c, visited, reachable_summits, path, distinct_paths)
-        score = len(reachable_summits)
+        visited: set[tuple[int, int]] = set()
+        summits: set[tuple[int, int]] = set()
+        path: list[tuple[int, int]] = []
+        distinct_paths: set[tuple[tuple[int, int], ...]] = set()
+
+        dfs(grid, r, c, visited, summits, path, distinct_paths)
+
+        score = len(summits)
         rating = len(distinct_paths)
         total_score += score
         total_rating += rating
@@ -87,6 +87,5 @@ def calculate_trail_scores(grid: TrailMap) -> tuple[int, int]:
     return total_score, total_rating
 
 
-def solve(data: str):
-    score, rating = calculate_trail_scores(parse_trail_map(data))
-    return (score, rating)
+def solve(data: str) -> Pair:
+    return calculate_trail_scores(parse_trail_map(data))

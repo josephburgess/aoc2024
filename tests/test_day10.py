@@ -21,6 +21,12 @@ def example_data():
     )
 
 
+@pytest.fixture
+def real_data():
+    with open("input/day10.txt", "r") as f:
+        return f.read()
+
+
 def test_parse_trail_map():
     data = dedent("""
         0123
@@ -34,3 +40,7 @@ def test_parse_trail_map():
 
 def test_example_data(example_data: str):
     assert solve(example_data) == (36, 81)
+
+
+def test_real_data(real_data: str):
+    assert solve(real_data) == (659, 1463)
