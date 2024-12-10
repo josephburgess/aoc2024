@@ -14,7 +14,6 @@
 # tracking of visited cells - trailID? store visited states for each trailhead separately?
 
 from custom_types import Location
-from utils import parse_grid
 
 type TrailMap = list[list[int]]
 
@@ -39,7 +38,15 @@ def in_bounds(r: int, c: int, grid: TrailMap) -> bool:
     return 0 <= r < len(grid) and 0 <= c < len(grid[0])
 
 
-def dfs(grid: TrailMap, r: int, c: int, visited: set[Location], reachable_summits: set[Location], path: list[Location], distinct_paths: set[tuple[Location, ...]]):
+def dfs(
+    grid: TrailMap,
+    r: int,
+    c: int,
+    visited: set[Location],
+    reachable_summits: set[Location],
+    path: list[Location],
+    distinct_paths: set[tuple[Location, ...]]
+):
     if not in_bounds(r, c, grid):
         return
     if (r, c) in visited:
@@ -66,12 +73,12 @@ def calculate_trail_scores(grid: TrailMap) -> tuple[int, int]:
     total_score = 0
     total_rating = 0
     trailheads = find_trailheads(grid)
-    for x, y in trailheads:
+    for r, c in trailheads:
         visited: set[Location] = set()
         reachable_summits: set[Location] = set()
         path: list[Location] = []
         distinct_paths: set[tuple[Location, ...]] = set()
-        dfs(grid, x, y, visited, reachable_summits, path, distinct_paths)
+        dfs(grid, r, c, visited, reachable_summits, path, distinct_paths)
         score = len(reachable_summits)
         rating = len(distinct_paths)
         total_score += score
