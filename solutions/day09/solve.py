@@ -33,6 +33,51 @@ def compact_disk(disk: Disk) -> Disk:
     return disk
 
 
+def compact_disk_defrag(disk: Disk) -> Disk:
+    files = []
+    i = 0
+    while i < len(disk):
+        if isinstance(disk[i], int):
+            start = i
+            file_id = disk[i]
+            while i < len(disk) and disk[i] == file_id:
+                i += 1
+            end = i - 1
+            files.append((start, end))
+        else:
+            i += 1
+
+    files.sort(key=lambda x: disk[x[0]], reverse=True)
+
+    def find_free_space(disk: Disk, start_idx: int, length: int) -> int:
+        i = 0
+        while i < start_idx:
+            if disk[i] == '.':
+                space_count = 0
+                j = i
+                while j < start_idx and j < len(disk) and disk[j] == '.' and space_count < length:
+                    space_count += 1
+                    j += 1
+                if space_count >= length:
+                    return i
+                i = j
+            else:
+                i += 1
+        return -1
+
+    for (start, end) in files:
+        file_length = end - start + 1
+        file_id = disk[start]
+        new_pos = find_free_space(disk, start, file_length)
+        if new_pos != -1:
+            for idx in range(start, end + 1):
+                disk[idx] = '.'
+            for idx in range(new_pos, new_pos + file_length):
+                disk[idx] = file_id
+
+    return disk
+
+
 def calculate_checksum(disk: Disk) -> int:
     checksum = 0
     for i, block in enumerate(disk):
@@ -46,7 +91,10 @@ def solve(data: str):
     compact = compact_disk(disk_map)
     checksum = calculate_checksum(compact)
 
-    return (checksum, 1)
+    disk_map_two = parse_disk_map(data)
+    defrag = compact_disk_defrag(disk_map_two)
+    checksum_defrag = calculate_checksum(defrag)
+    return (checksum, checksum_defrag)
 
 
 # odd positions - file sizes
@@ -57,6 +105,7 @@ def solve(data: str):
 # cells - either file blocks (rep'd as ID) or free space (.)
 #
 # 2333133121414131402 -> 00...111...2...333.44.5555.6666.777.888899
+#
 #
 # 1. parse
 # iterate through input, create a list - append blocks and space in order - ID / .
