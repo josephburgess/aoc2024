@@ -1,5 +1,6 @@
 
 type Disk = list[int | str]
+type File = tuple[int, int]  # (start, end)
 
 
 def parse_disk_map(data: str) -> Disk:
@@ -34,7 +35,7 @@ def compact_disk(disk: Disk) -> Disk:
 
 
 def compact_disk_defrag(disk: Disk) -> Disk:
-    files: list[tuple[int, int]] = []
+    files: list[File] = []
     i = 0
     while i < len(disk):
         if isinstance(disk[i], int):
@@ -87,12 +88,9 @@ def calculate_checksum(disk: Disk) -> int:
 
 
 def solve(data: str):
-    disk_map = parse_disk_map(data)
-    compact = compact_disk(disk_map)
+    compact = compact_disk(parse_disk_map(data))
     checksum = calculate_checksum(compact)
-
-    disk_map_two = parse_disk_map(data)
-    defrag = compact_disk_defrag(disk_map_two)
+    defrag = compact_disk_defrag(parse_disk_map(data))
     checksum_defrag = calculate_checksum(defrag)
     return (checksum, checksum_defrag)
 
