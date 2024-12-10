@@ -34,7 +34,7 @@ def compact_disk(disk: Disk) -> Disk:
 
 
 def compact_disk_defrag(disk: Disk) -> Disk:
-    files = []
+    files: list[tuple[int, int]] = []
     i = 0
     while i < len(disk):
         if isinstance(disk[i], int):
