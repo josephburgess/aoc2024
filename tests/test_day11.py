@@ -13,4 +13,4 @@ def test_split_stones():
 
 
 def test_example_data(example_data: str):
-    assert solve(example_data) == (55312, 1)
+    assert solve(example_data) == (55312, 65601038650482)
