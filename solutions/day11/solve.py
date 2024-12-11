@@ -34,5 +34,37 @@
 #         stones = new_stones
 #     return len(stones)
 
+def parse_stones(data: str) -> list[int]:
+    return [int(x) for x in data.split()]
+
+
+def number_of_digits(stone: int) -> int:
+    return len(str(stone))
+
+
+def split_stone(stone: int) -> tuple[int, int]:
+    stone_str = str(stone)
+    mid = len(stone_str) // 2
+    return int(stone_str[:mid]), int(stone_str[mid:])
+
+
+def simulate_blinks(stones: list[int], num_blinks: int) -> int:
+    for _ in range(0, num_blinks):
+        new_stones: list[int] = []
+        for stone in stones:
+            if stone == 0:
+                new_stones.append(1)
+            elif (number_of_digits(stone) % 2 == 0):
+                left, right = split_stone(stone)
+                new_stones.append(left)
+                new_stones.append(right)
+            else:
+                new_stones.append(stone * 2024)
+        stones = new_stones
+    return len(stones)
+
+
 def solve(data: str):
-    pass
+    total: int = simulate_blinks(parse_stones(data), 25)
+    total_two: int = simulate_blinks(parse_stones(data), 75)
+    return (total, 1)
