@@ -34,6 +34,35 @@
 #         stones = new_stones
 #     return len(stones)
 
+from collections import defaultdict
+from dataclasses import dataclass, field
+
+
+@dataclass
+class StoneState:
+    stone_counts: dict[int, int] = field(default_factory=lambda: defaultdict(int))
+
+    def add_stone(self, value: int, count: int = 1) -> None:
+        self.stone_counts[value] += count
+
+    def total_stones(self) -> int:
+        return sum(count for count in self.stone_counts.values())
+
+    def blink(self) -> None:
+        new_state = StoneState()
+        for stone_value, count in self.stone_counts.items():
+            if stone_value == 0:
+                new_state.add_stone(1, count)
+            elif number_of_digits(stone_value) % 2 == 0:
+                left, right = split_stone(stone_value)
+                new_state.add_stone(left, count)
+                new_state.add_stone(right, count)
+            else:
+                num = stone_value * 2024
+                new_state.add_stone(num, count)
+        self.stone_counts = new_state.stone_counts
+
+
 def parse_stones(data: str) -> list[int]:
     return [int(x) for x in data.split()]
 
@@ -64,7 +93,18 @@ def simulate_blinks(stones: list[int], num_blinks: int) -> int:
     return len(stones)
 
 
+def simulate_blinks_state_machine(stones: list[int], num_blinks: int) -> int:
+    state = StoneState()
+    for stone in stones:
+        state.add_stone(stone)
+
+    for _ in range(num_blinks):
+        state.blink()
+
+    return state.total_stones()
+
+
 def solve(data: str):
     total: int = simulate_blinks(parse_stones(data), 25)
-    total_two: int = simulate_blinks(parse_stones(data), 75)
-    return (total, 1)
+    total_two: int = simulate_blinks_state_machine(parse_stones(data), 75)
+    return (total, total_two)
