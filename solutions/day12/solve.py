@@ -48,7 +48,7 @@ def count_sides(region_cells: set[Location]) -> int:
     s = region_cells
     sides = 0
 
-    def in_region(y, x):
+    def in_region(y: int, x: int):
         return (y, x) in s
 
     for (y, x) in region_cells:
@@ -61,7 +61,7 @@ def count_sides(region_cells: set[Location]) -> int:
         southwest = (y + 1, x - 1)
         northwest = (y - 1, x - 1)
 
-        # outside curve
+        # outside
         if (not in_region(*north)) and (not in_region(*east)):
             sides += 1
         if (not in_region(*east)) and (not in_region(*south)):
@@ -71,7 +71,7 @@ def count_sides(region_cells: set[Location]) -> int:
         if (not in_region(*west)) and (not in_region(*north)):
             sides += 1
 
-        # inside curve
+        # inside
         if (not in_region(*northwest)) and in_region(*north) and in_region(*west):
             sides += 1
         if (not in_region(*northeast)) and in_region(*north) and in_region(*east):
