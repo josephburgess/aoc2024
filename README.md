@@ -23,8 +23,8 @@ Solving in Python because it's just a fun language to solve coding problems with
 | [Day 10: Hoof It](https://adventofcode.com/2024/day/10)             | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day10/solve.py) | ⭐️⭐️ |
 | [Day 11: Plutonian Pebbles](https://adventofcode.com/2024/day/11)   | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day11/solve.py) | ⭐️⭐️ |
 | [Day 12: Garden Groups](https://adventofcode.com/2024/day/12)       | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day12/solve.py) | ⭐️⭐️ |
-| [Day 13: Claw Contraption](https://adventofcode.com/2024/day/13)    | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day13/solve.py) | ⭐️⭐️ |
-| [Day 14: Restroom Redoubt](https://adventofcode.com/2024/day/14)    | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day14/solve.py) | ⭐️⭐️ |
+| [Day 13: Claw Contraption](https://adventofcode.com/2024/day/13)    | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day13/solve.py) |  ⭐️   |
+| [Day 14: Restroom Redoubt](https://adventofcode.com/2024/day/14)    | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day14/solve.py) |  ⭐️   |
 
 </details>
 
