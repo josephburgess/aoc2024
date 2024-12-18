@@ -25,4 +25,4 @@ Prize: X=18641, Y=10279
 
 
 def test_example_data(example_data: str):
-    assert solve(example_data) == 480
+    assert solve(example_data) == (480, 1)
