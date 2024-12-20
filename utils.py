@@ -1,20 +1,10 @@
+from typing import Callable
+
 from custom_types import Pair
 
 
-def split_and_map(data: str) -> list[list[int]]:
-    """
-    We were doing similar transformations to similar data over day 1 and 2
-    so moved a small piece of initial logic to this util.
-
-    Splits the input data into lines and converts each line to a list of integers.
-
-    Args:
-        data (str): raw input data, multi line string
-    Returns:
-        list[list[int]]: List of lists of integers from the input
-    """
-
-    return [list(map(int, line.split())) for line in data.strip().splitlines()]
+def split_and_map(data: str, sep: str | None = None, func: Callable[[str], int] = int) -> list[list[int]]:
+    return [list(map(func, line.split(sep))) for line in data.strip().splitlines()]
 
 
 def print_solutions(folder_name: str, solution: Pair) -> None:
