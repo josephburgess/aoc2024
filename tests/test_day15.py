@@ -1,6 +1,6 @@
 import pytest
 
-from solutions.day15 import solve
+from solutions.day15 import expand_warehouse, parse_input, run_warehouse_simulation, solve
 
 
 @pytest.fixture
@@ -48,4 +48,50 @@ def test_small_data():
 
 
 def test_example_data(example_data: str):
-    assert solve(example_data) == (10092, 1)
+    assert solve(example_data) == (10092, 9021)
+
+
+def test_parse_map(example_data: str):
+    grid, _ = parse_input(example_data)
+    expanded_warehouse = expand_warehouse(grid)
+
+    expanded_warehouse_str = "\n".join("".join(row) for row in expanded_warehouse)
+
+    expected = """
+####################
+##....[]....[]..[]##
+##............[]..##
+##..[][]....[]..[]##
+##....[]@.....[]..##
+##[]##....[]......##
+##[]....[]....[]..##
+##..[][]..[]..[][]##
+##........[]......##
+####################
+""".strip()
+
+    assert expanded_warehouse_str == expected
+
+
+# def test_final_warehouse_state(example_data: str):
+#     grid, moves = parse_input(example_data)
+#     expanded_warehouse = expand_warehouse(grid)
+#
+#     _ = run_warehouse_simulation(expanded_warehouse, moves)
+#
+#     final_warehouse_str = "\n".join("".join(row) for row in expanded_warehouse)
+#
+#     expected = """
+# ####################
+# ##[].......[].[][]##
+# ##[]...........[].##
+# ##[]........[][][]##
+# ##[]......[]....[]##
+# ##..##......[]....##
+# ##..[]............##
+# ##..@......[].[][]##
+# ##......[][]..[]..##
+# ####################
+# """.strip()
+#
+#     assert final_warehouse_str == expected

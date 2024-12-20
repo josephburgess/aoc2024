@@ -1,3 +1,5 @@
+import copy
+
 from custom_types import Grid, Location
 
 DIRECTIONS = {
@@ -25,6 +27,25 @@ def parse_input(input_str: str) -> tuple[Grid, str]:
     return warehouse, moves
 
 
+def expand_warehouse(warehouse: Grid) -> Grid:
+    expanded_warehouse: Grid = []
+    for row in warehouse:
+        expanded_row: list[str] = []
+        for char in row:
+            if char == '#':
+                expanded_row.extend(['#', '#'])
+            elif char == 'O':
+                expanded_row.extend(['[', ']'])
+            elif char == '.':
+                expanded_row.extend(['.', '.'])
+            elif char == '@':
+                expanded_row.extend(['@', '.'])
+            else:
+                raise ValueError(f"Unexpected character {char} in warehouse.")
+        expanded_warehouse.append(expanded_row)
+    return expanded_warehouse
+
+
 def in_bounds(warehouse: Grid, r: int, c: int) -> bool:
     return 0 <= r < len(warehouse) and 0 <= c < len(warehouse[0])
 
@@ -37,11 +58,11 @@ def find_robot(warehouse: Grid) -> Location:
     raise ValueError("robot not found!")
 
 
-def push_boxes(warehouse: Grid, start_r: int, start_c: int, dr: int, dc: int) -> bool:
+def push_boxes(warehouse: Grid, start_r: int, start_c: int, dr: int, dc: int, box_char: str = 'O') -> bool:
     boxes: list[Location] = []
     r, c = start_r, start_c
     while True:
-        if in_bounds(warehouse, r, c) and warehouse[r][c] == 'O':
+        if in_bounds(warehouse, r, c) and warehouse[r][c] in (box_char, '['):
             boxes.append((r, c))
             r += dr
             c += dc
@@ -55,7 +76,7 @@ def push_boxes(warehouse: Grid, start_r: int, start_c: int, dr: int, dc: int) ->
         return False
 
     for (br, bc) in reversed(boxes):
-        warehouse[br + dr][bc + dc] = 'O'
+        warehouse[br + dr][bc + dc] = 'O' if box_char == 'O' else '['
         warehouse[br][bc] = '.'
     return True
 
@@ -74,8 +95,8 @@ def move_robot(warehouse: Grid, robot_pos: tuple[int, int], move: str) -> tuple[
     elif target == '.':
         warehouse[r][c], warehouse[nr][nc] = '.', '@'
         return nr, nc
-    elif target == 'O':
-        if push_boxes(warehouse, nr, nc, dr, dc):
+    elif target in ('O', '['):
+        if push_boxes(warehouse, nr, nc, dr, dc, target):
             warehouse[r][c], warehouse[nr][nc] = '.', '@'
             return nr, nc
         else:
@@ -89,6 +110,8 @@ def compute_gps_sum(warehouse: Grid) -> int:
     for r, row in enumerate(warehouse):
         for c, val in enumerate(row):
             if val == 'O':
+                total += 100 * r + c
+            elif val == '[':
                 total += 100 * r + c
     return total
 
@@ -105,9 +128,14 @@ def run_warehouse_simulation(warehouse: Grid, moves_str: str) -> int:
 
 def solve(data: str) -> tuple[int, int]:
     grid, moves = parse_input(data)
-    gps_sum = run_warehouse_simulation(grid, moves)
-    return (gps_sum, 1)
 
+    grid1 = copy.deepcopy(grid)
+    grid2 = expand_warehouse(grid)
+
+    gps_sum_part_1 = run_warehouse_simulation(grid1, moves)
+    gps_sum_part_2 = run_warehouse_simulation(grid2, moves)
+
+    return (gps_sum_part_1, gps_sum_part_2)
 # move robot (@) in grid using move list (^, v, <, >)
 # push boxes (o) as needed (only if possible).
 # return sum of gps coordinates for all box positions (100 * r + c for each box).
