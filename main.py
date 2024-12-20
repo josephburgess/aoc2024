@@ -1,4 +1,5 @@
 import importlib
+import sys
 from collections.abc import Callable
 from pathlib import Path
 
@@ -9,23 +10,37 @@ from utils import print_solutions
 def main():
     solutions_path, input_path = Path("solutions"), Path("input")
 
-    for folder in sorted(solutions_path.iterdir()):
-        if folder.is_dir() and folder.name.startswith("day"):
-            input_file = input_path / f"{folder.name}.txt"
+    specific_day = None
+    if len(sys.argv) > 1:
+        try:
+            day_number = int(sys.argv[1])
+            specific_day = f"day{day_number:02d}"
+        except ValueError:
+            print("invalid day format")
+            return
 
-            if not input_file.exists():
-                print(f"Input file for {folder.name} missing")
-                continue
+    day_folders = [f for f in solutions_path.iterdir() if f.is_dir() and f.name.startswith("day")]
+    day_folders.sort()
 
-            try:
-                data = input_file.read_text()
-                module = importlib.import_module(f"{solutions_path}.{folder.name}.solve")
-                solve: Callable[[str], Pair] = getattr(module, "solve")
-                solution = solve(data)
-                print_solutions(folder.name, solution)
+    if specific_day:
+        day_folders = [f for f in day_folders if f.name == specific_day]
 
-            except Exception as e:
-                print(f"Error in {folder.name}: {e}")
+    for folder in day_folders:
+        input_file = input_path / f"{folder.name}.txt"
+
+        if not input_file.exists():
+            print(f"Input file for {folder.name} missing")
+            continue
+
+        try:
+            data = input_file.read_text()
+            module = importlib.import_module(f"{solutions_path}.{folder.name}.solve")
+            solve: Callable[[str], Pair] = getattr(module, "solve")
+            solution = solve(data)
+            print_solutions(folder.name, solution)
+
+        except Exception as e:
+            print(f"Error in {folder.name}: {e}")
 
 
 if __name__ == "__main__":
