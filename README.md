@@ -25,6 +25,8 @@ Solving in Python because it's just a fun language to solve coding problems with
 | [Day 12: Garden Groups](https://adventofcode.com/2024/day/12)       | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day12/solve.py) | ⭐️⭐️ |
 | [Day 13: Claw Contraption](https://adventofcode.com/2024/day/13)    | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day13/solve.py) |  ⭐️   |
 | [Day 14: Restroom Redoubt](https://adventofcode.com/2024/day/14)    | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day14/solve.py) |  ⭐️   |
+| [Day 15: Warehouse Woes](https://adventofcode.com/2024/day/15)      | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day15/solve.py) |  ⭐️   |
+| [Day 16: Reindeer Maze](https://adventofcode.com/2024/day/16)       | [Solution](https://github.com/josephburgess/aoc2024/tree/main/solutions/day16/solve.py) |  ⭐️   |
 
 </details>
 
